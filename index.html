@@ -114,6 +114,29 @@ nav{justify-content:space-between;gap:20px}
 @media(max-width:650px){.ba-card,.pkg{padding:20px}.ba-card{min-height:0}.ba-foot{flex-direction:column;align-items:flex-start;gap:12px}.audit{padding:22px 18px;box-shadow:6px 6px 0 var(--ink)}.audit .btn{width:100%;text-align:center}.pkg .btn{align-self:stretch;text-align:center}}
 @media(prefers-reduced-motion:reduce){.pkg,.audit{transition:none}.pkg:hover,.audit:hover{transform:none}}
 
+
+.bell-wrap{position:fixed;right:20px;bottom:20px;z-index:60;width:56px;height:56px;touch-action:none;user-select:none;-webkit-user-select:none}
+.bell-btn{position:relative;width:100%;height:100%;display:grid;place-items:center;margin:0;padding:0;border:2px solid var(--ink);border-radius:18px;background:var(--lime);color:var(--ink);box-shadow:5px 5px 0 var(--ink);cursor:grab;appearance:none;-webkit-appearance:none}
+.bell-btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.bell-btn:active,.bell-wrap.dragging .bell-btn{cursor:grabbing}
+.bell-wrap.dragging .bell-btn{box-shadow:3px 3px 0 var(--ink);transform:translate(2px,2px)}
+.bell-icon{display:block;width:22px;height:22px;transform-origin:50% 8%}
+.bell-dot{position:absolute;top:-3px;right:-3px;width:12px;height:12px;background:#ff4d57;border:2px solid var(--ink);border-radius:50%;pointer-events:none}
+.bell-btn.cleared .bell-dot{display:none}
+.bell-toast{position:absolute;z-index:1;display:block;box-sizing:border-box;width:max-content;max-width:min(260px,calc(100vw - 84px));padding:12px 14px;background:#fff;color:var(--ink);border:2px solid var(--ink);border-radius:16px;box-shadow:5px 5px 0 var(--ink);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(6px) scale(.98);transition:opacity .2s ease,transform .2s ease,visibility 0s linear .2s;text-decoration:none}
+.bell-toast.open{opacity:1;visibility:visible;pointer-events:auto;transform:none;transition:opacity .2s ease,transform .2s ease,visibility 0s}
+.bell-toast.to-left{right:calc(100% + 12px);left:auto}
+.bell-toast.to-right{left:calc(100% + 12px);right:auto}
+.bell-toast.to-top{bottom:0;top:auto}
+.bell-toast.to-bottom{top:0;bottom:auto}
+.bell-toast b{display:block;font-size:14px;font-weight:850;line-height:1.4;letter-spacing:-.02em}
+.bell-toast span{display:block;margin-top:6px;font-size:11px;font-weight:850;color:var(--muted)}
+.bell-toast:hover{background:var(--pink2)}
+@keyframes bell-wiggle{0%{transform:rotate(0)}12%{transform:rotate(18deg)}24%{transform:rotate(-16deg)}36%{transform:rotate(12deg)}48%{transform:rotate(-8deg)}60%{transform:rotate(5deg)}72%{transform:rotate(-3deg)}100%{transform:rotate(0)}}
+.bell-btn.ring .bell-icon{animation:bell-wiggle .7s ease-in-out}
+@media(max-width:650px){.bell-wrap{width:48px;height:48px;right:14px;bottom:14px}.bell-icon{width:20px;height:20px}.bell-btn{border-radius:16px;box-shadow:4px 4px 0 var(--ink)}.bell-toast{max-width:min(240px,calc(100vw - 76px));padding:11px 12px}}
+@media(prefers-reduced-motion:reduce){.bell-btn.ring .bell-icon{animation:none}.bell-toast,.bell-toast.open{transition:none;transform:none}}
+
 </style>
 </head>
 <body>
@@ -335,7 +358,19 @@ if it sounds too formal, i rewrite it.
 
 <section id="contact"><div class="contact"><div class="eyebrow" style="color:#aaa">07 — contact</div><h2>want your page<br>to feel alive?</h2><p>Tell me what you’re building and where your page is stuck. Page management, ghostwriting, replies or launch copy. A DM on X is the fastest way to reach me.</p><div class="links"><a href="https://x.com/kelcrown" target="_blank" rel="noopener" style="background:var(--pink);color:var(--ink);border-color:var(--pink)">DM on X / @kelcrown ↗</a><a href="mailto:Crownprincebenj@gmail.com">email ↗</a><a href="https://t.me/Crownprince_Xn" target="_blank">Telegram ↗</a><span>Discord: Crownprince_X</span></div></div></section>
 <footer><div class="footer-left"><span class="footer-dot"></span><span>© 2026 Prince Kelvin</span></div><span>built with intention · one idea at a time.</span></footer>
-</div><script>
+</div>
+
+<div class="bell-wrap" id="bell-wrap">
+<button type="button" class="bell-btn" id="bell-btn" aria-label="open a note from kel" aria-expanded="false">
+<span class="bell-dot" aria-hidden="true"></span>
+<svg class="bell-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 9.2a5.8 5.8 0 1 1 11.6 0v3.6l1.35 2.5a1.05 1.05 0 0 1-.93 1.55H5.78a1.05 1.05 0 0 1-.93-1.55l1.35-2.5V9.2z" fill="currentColor"/><path d="M9.6 18.4a2.4 2.4 0 0 0 4.8 0" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+</button>
+<a class="bell-toast" id="bell-toast" href="https://x.com/kelcrown" target="_blank" rel="noopener" aria-hidden="true">
+<b></b><span>dm me on x ↗</span>
+</a>
+</div>
+
+<script>
 (function(){
   var d=document.documentElement; d.classList.add('js');
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -377,4 +412,165 @@ if it sounds too formal, i rewrite it.
   tick();setInterval(tick,15000);
 })();
 </script>
+
+<script>
+(function(){
+  var wrap=document.getElementById('bell-wrap');
+  var btn=document.getElementById('bell-btn');
+  var toast=document.getElementById('bell-toast');
+  if(!wrap||!btn||!toast)return;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var lines=[
+    'new reply: your page could be louder 👀',
+    'someone bookmarked your thread. could be you.',
+    '1 new notification: your launch tweet needs a hook',
+    'your last post was quiet. i’d rewrite line one.',
+    'psst. a good reply is worth fifty bad ones.',
+    'your page went quiet. let’s not do that.'
+  ];
+  var KEY='kelcrown-bell';
+  var start=null, dragged=false, suppress=false, hideTimer=null, line=0, audioCtx=null;
+
+  function pad(){return window.innerWidth<=650?12:16}
+  function topMin(){return window.innerWidth<=650?72:86}
+  function clamp(left,top){
+    var p=pad(), w=wrap.offsetWidth, h=wrap.offsetHeight, sh=6;
+    var maxL=Math.max(p, window.innerWidth-w-p-sh);
+    var maxT=Math.max(topMin(), window.innerHeight-h-p-sh);
+    return {left:Math.max(p,Math.min(left,maxL)), top:Math.max(topMin(),Math.min(top,maxT))};
+  }
+  function apply(pos){
+    wrap.style.left=Math.round(pos.left)+'px';
+    wrap.style.top=Math.round(pos.top)+'px';
+    wrap.style.right='auto';
+    wrap.style.bottom='auto';
+  }
+  function overlaps(a,b){return !(a.right<b.left||a.left>b.right||a.bottom<b.top||a.top>b.bottom)}
+  function defaultPos(){
+    var p=pad(), w=wrap.offsetWidth, h=wrap.offsetHeight;
+    var left=window.innerWidth-w-p-6, top=window.innerHeight-h-p-6;
+    var btns=document.querySelector('.hero .buttons');
+    if(btns&&window.innerWidth<=650){
+      var br=btns.getBoundingClientRect();
+      if(overlaps({left:left,top:top,right:left+w,bottom:top+h}, br)){
+        if(br.bottom+16+h<=window.innerHeight-p) top=br.bottom+16;
+        else top=Math.max(topMin(), br.top-h-16);
+      }
+    }
+    return clamp(left,top);
+  }
+  function save(){
+    var r=wrap.getBoundingClientRect();
+    try{localStorage.setItem(KEY, JSON.stringify({left:r.left,top:r.top}))}catch(e){}
+  }
+  function restore(){
+    try{
+      var o=JSON.parse(localStorage.getItem(KEY)||'');
+      if(o&&typeof o.left==='number'&&typeof o.top==='number') return clamp(o.left,o.top);
+    }catch(e){}
+    return defaultPos();
+  }
+  function placeToast(){
+    var r=wrap.getBoundingClientRect();
+    var midX=r.left+r.width/2, midY=r.top+r.height/2;
+    toast.classList.toggle('to-right', midX<window.innerWidth*0.55);
+    toast.classList.toggle('to-left', midX>=window.innerWidth*0.55);
+    toast.classList.toggle('to-bottom', midY<window.innerHeight*0.45);
+    toast.classList.toggle('to-top', midY>=window.innerHeight*0.45);
+  }
+  function ding(){
+    if(reduce)return;
+    try{
+      var AC=window.AudioContext||window.webkitAudioContext;
+      if(!AC)return;
+      if(!audioCtx) audioCtx=new AC();
+      if(audioCtx.state==='suspended') audioCtx.resume();
+      var now=audioCtx.currentTime;
+      function tone(freq,start,dur,vol){
+        var o=audioCtx.createOscillator(), g=audioCtx.createGain();
+        o.type='sine'; o.frequency.setValueAtTime(freq,start);
+        g.gain.setValueAtTime(0,start);
+        g.gain.linearRampToValueAtTime(vol,start+0.018);
+        g.gain.exponentialRampToValueAtTime(0.0008,start+dur);
+        o.connect(g); g.connect(audioCtx.destination);
+        o.start(start); o.stop(start+dur+0.02);
+      }
+      tone(880, now, 0.16, 0.045);
+      tone(1318.5, now+0.11, 0.28, 0.035);
+    }catch(e){}
+  }
+  function hideToast(){
+    toast.classList.remove('open');
+    toast.setAttribute('aria-hidden','true');
+    btn.setAttribute('aria-expanded','false');
+  }
+  function ring(){
+    btn.classList.add('cleared');
+    if(!reduce){
+      btn.classList.remove('ring');
+      void btn.offsetWidth;
+      btn.classList.add('ring');
+    }
+    var text=toast.querySelector('b');
+    if(text) text.textContent=lines[line%lines.length];
+    line=(line+1)%lines.length;
+    placeToast();
+    toast.classList.add('open');
+    toast.setAttribute('aria-hidden','false');
+    btn.setAttribute('aria-expanded','true');
+    ding();
+    clearTimeout(hideTimer);
+    hideTimer=setTimeout(hideToast, 4000);
+  }
+
+  apply(restore());
+
+  btn.addEventListener('pointerdown', function(e){
+    if(e.button) return;
+    var r=wrap.getBoundingClientRect();
+    start={x:e.clientX,y:e.clientY,left:r.left,top:r.top,id:e.pointerId};
+    dragged=false;
+    try{btn.setPointerCapture(e.pointerId)}catch(err){}
+  });
+  btn.addEventListener('pointermove', function(e){
+    if(!start||e.pointerId!==start.id) return;
+    var dx=e.clientX-start.x, dy=e.clientY-start.y;
+    if(!dragged && dx*dx+dy*dy<64) return;
+    dragged=true;
+    wrap.classList.add('dragging');
+    apply(clamp(start.left+dx, start.top+dy));
+    if(toast.classList.contains('open')) placeToast();
+  });
+  function endDrag(e){
+    if(!start|| (e&&start.id!=null&&e.pointerId!==start.id)) return;
+    start=null;
+    wrap.classList.remove('dragging');
+    if(dragged){
+      save();
+      suppress=true;
+      setTimeout(function(){suppress=false}, 50);
+      dragged=false;
+      return;
+    }
+    ring();
+    suppress=true;
+    setTimeout(function(){suppress=false}, 50);
+  }
+  btn.addEventListener('pointerup', endDrag);
+  btn.addEventListener('pointercancel', endDrag);
+  btn.addEventListener('click', function(e){
+    if(suppress){ e.preventDefault(); e.stopPropagation(); return; }
+    ring();
+  });
+  btn.addEventListener('keydown', function(e){
+    if(e.key==='Escape') hideToast();
+  });
+  window.addEventListener('resize', function(){
+    var r=wrap.getBoundingClientRect();
+    apply(clamp(r.left,r.top));
+    if(toast.classList.contains('open')) placeToast();
+  });
+})();
+</script>
+
 </body></html>
