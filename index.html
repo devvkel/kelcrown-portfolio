@@ -18,7 +18,7 @@
 
 <style>
 :root{--bg:#f2f2f0;--white:#fff;--ink:#101114;--muted:#666a73;--line:#d9d9d6;--pink:#f7c9d8;--pink2:#ffe8ef;--lav:#d9d2ff;--lime:#dfff72;--soft:#ececef}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}a{color:inherit;text-decoration:none}.wrap{width:min(1160px,92%);margin:auto}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden;overflow-x:clip}a{color:inherit;text-decoration:none}.wrap{width:min(1160px,92%);margin:auto}
 nav{height:78px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:10px;font-weight:950;font-size:22px}.brand-dot{width:12px;height:12px;background:var(--pink);border:2px solid var(--ink);border-radius:50%}.nav{display:flex;gap:24px;color:var(--muted);font-size:14px;font-weight:750}.nav a:hover{color:var(--ink)}
 .hero{position:relative;min-height:650px;display:grid;grid-template-columns:1.25fr .75fr;align-items:center;gap:45px;padding:45px 0 95px}.hero-copy{position:relative;z-index:2}.pill{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:9px 13px;font-size:12px;font-weight:900;box-shadow:4px 4px 0 var(--pink)}.pulse{width:7px;height:7px;background:#9fdf00;border-radius:50%;border:1px solid var(--ink)}h1{font-size:clamp(58px,8vw,106px);line-height:.88;letter-spacing:-.085em;margin:24px 0 20px;max-width:760px}h1 em{font-style:normal;position:relative;display:inline-block}h1 em:after{content:"";position:absolute;height:13px;background:var(--pink);left:3px;right:4px;bottom:2px;z-index:-1;border-radius:8px;transform:rotate(-1.5deg)}.lead{font-size:20px;line-height:1.55;color:var(--muted);max-width:650px;margin:0}.buttons{display:flex;gap:11px;margin-top:28px;flex-wrap:wrap}.btn{padding:13px 17px;border:1.5px solid var(--ink);border-radius:13px;font-weight:900;background:var(--white);box-shadow:4px 4px 0 var(--ink);transition:.18s}.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}.primary{background:var(--ink);color:#fff;box-shadow:4px 4px 0 var(--pink)}
 .hero-art{position:relative;min-height:480px;display:flex;align-items:center;justify-content:center}.blob{position:absolute;width:390px;height:390px;border-radius:47% 53% 61% 39%;background:var(--pink);transform:rotate(-8deg);right:18px}.blob2{position:absolute;width:290px;height:290px;border-radius:50%;background:var(--lav);right:75px;bottom:15px;opacity:.8}.pfp-card{position:relative;width:310px;background:#fff;border:2px solid var(--ink);border-radius:26px;padding:14px;transform:rotate(3deg);box-shadow:13px 13px 0 var(--ink);z-index:2}.pfp-card img{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:17px;background:#eee}.pfp-meta{display:flex;justify-content:space-between;align-items:center;padding:12px 4px 2px;font-size:12px;font-weight:900}.tiny{color:var(--muted);font-weight:750}.sticker{position:absolute;z-index:4;background:var(--lime);border:2px solid var(--ink);padding:9px 12px;border-radius:13px;font-weight:950;font-size:12px;box-shadow:5px 5px 0 var(--ink);transform:rotate(-8deg);top:70px;right:15px}.sticker2{position:absolute;z-index:4;background:var(--white);border:2px solid var(--ink);padding:8px 11px;border-radius:50%;font-weight:950;bottom:52px;left:15px;box-shadow:4px 4px 0 var(--ink)}
@@ -115,15 +115,16 @@ nav{justify-content:space-between;gap:20px}
 @media(prefers-reduced-motion:reduce){.pkg,.audit{transition:none}.pkg:hover,.audit:hover{transform:none}}
 
 
-.bell-wrap{position:fixed;right:20px;bottom:20px;z-index:60;width:56px;height:56px;touch-action:none;user-select:none;-webkit-user-select:none}
-.bell-btn{position:relative;width:100%;height:100%;display:grid;place-items:center;margin:0;padding:0;border:2px solid var(--ink);border-radius:18px;background:var(--lime);color:var(--ink);box-shadow:5px 5px 0 var(--ink);cursor:grab;appearance:none;-webkit-appearance:none}
+
+.bell-wrap{position:fixed;right:max(20px,env(safe-area-inset-right,0px));bottom:max(20px,env(safe-area-inset-bottom,0px));left:auto;top:auto;z-index:99999;width:72px;height:72px;touch-action:none;-ms-touch-action:none;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;isolation:isolate}
+.bell-btn{position:relative;width:100%;height:100%;display:grid;place-items:center;margin:0;padding:0;border:2.5px solid var(--ink);border-radius:22px;background:var(--lime);color:var(--ink);box-shadow:6px 6px 0 var(--ink);cursor:grab;appearance:none;-webkit-appearance:none;touch-action:none}
 .bell-btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .bell-btn:active,.bell-wrap.dragging .bell-btn{cursor:grabbing}
 .bell-wrap.dragging .bell-btn{box-shadow:3px 3px 0 var(--ink);transform:translate(2px,2px)}
-.bell-icon{display:block;width:22px;height:22px;transform-origin:50% 8%}
-.bell-dot{position:absolute;top:-3px;right:-3px;width:12px;height:12px;background:#ff4d57;border:2px solid var(--ink);border-radius:50%;pointer-events:none}
+.bell-icon{display:block;width:32px;height:32px;transform-origin:50% 8%}
+.bell-dot{position:absolute;top:-4px;right:-4px;width:16px;height:16px;background:#ff4d57;border:2.5px solid var(--ink);border-radius:50%;pointer-events:none;z-index:1}
 .bell-btn.cleared .bell-dot{display:none}
-.bell-toast{position:absolute;z-index:1;display:block;box-sizing:border-box;width:max-content;max-width:min(260px,calc(100vw - 84px));padding:12px 14px;background:#fff;color:var(--ink);border:2px solid var(--ink);border-radius:16px;box-shadow:5px 5px 0 var(--ink);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(6px) scale(.98);transition:opacity .2s ease,transform .2s ease,visibility 0s linear .2s;text-decoration:none}
+.bell-toast{position:absolute;z-index:2;display:block;box-sizing:border-box;width:max-content;max-width:min(280px,calc(100vw - 108px));padding:12px 14px;background:#fff;color:var(--ink);border:2px solid var(--ink);border-radius:16px;box-shadow:5px 5px 0 var(--ink);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(6px) scale(.98);transition:opacity .2s ease,transform .2s ease,visibility 0s linear .2s;text-decoration:none}
 .bell-toast.open{opacity:1;visibility:visible;pointer-events:auto;transform:none;transition:opacity .2s ease,transform .2s ease,visibility 0s}
 .bell-toast.to-left{right:calc(100% + 12px);left:auto}
 .bell-toast.to-right{left:calc(100% + 12px);right:auto}
@@ -133,10 +134,9 @@ nav{justify-content:space-between;gap:20px}
 .bell-toast span{display:block;margin-top:6px;font-size:11px;font-weight:850;color:var(--muted)}
 .bell-toast:hover{background:var(--pink2)}
 @keyframes bell-wiggle{0%{transform:rotate(0)}12%{transform:rotate(18deg)}24%{transform:rotate(-16deg)}36%{transform:rotate(12deg)}48%{transform:rotate(-8deg)}60%{transform:rotate(5deg)}72%{transform:rotate(-3deg)}100%{transform:rotate(0)}}
-.bell-btn.ring .bell-icon{animation:bell-wiggle .7s ease-in-out}
-@media(max-width:650px){.bell-wrap{width:48px;height:48px;right:14px;bottom:14px}.bell-icon{width:20px;height:20px}.bell-btn{border-radius:16px;box-shadow:4px 4px 0 var(--ink)}.bell-toast{max-width:min(240px,calc(100vw - 76px));padding:11px 12px}}
-@media(prefers-reduced-motion:reduce){.bell-btn.ring .bell-icon{animation:none}.bell-toast,.bell-toast.open{transition:none;transform:none}}
-
+.bell-btn.ring .bell-icon,.bell-btn.attn .bell-icon{animation:bell-wiggle .7s ease-in-out}
+@media(max-width:650px){.bell-wrap{width:64px;height:64px;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px))}.bell-icon{width:28px;height:28px}.bell-btn{border-radius:20px;box-shadow:5px 5px 0 var(--ink)}.bell-toast{max-width:min(250px,calc(100vw - 96px));padding:11px 12px}}
+@media(prefers-reduced-motion:reduce){.bell-btn.ring .bell-icon,.bell-btn.attn .bell-icon{animation:none}.bell-toast,.bell-toast.open{transition:none;transform:none}}
 </style>
 </head>
 <body>
@@ -419,6 +419,8 @@ if it sounds too formal, i rewrite it.
   var btn=document.getElementById('bell-btn');
   var toast=document.getElementById('bell-toast');
   if(!wrap||!btn||!toast)return;
+  if(wrap.parentElement!==document.body) document.body.appendChild(wrap);
+
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   var lines=[
     'new reply: your page could be louder 👀',
@@ -429,54 +431,101 @@ if it sounds too formal, i rewrite it.
     'your page went quiet. let’s not do that.'
   ];
   var KEY='kelcrown-bell';
-  var start=null, dragged=false, suppress=false, hideTimer=null, line=0, audioCtx=null;
+  var start=null, dragged=false, suppress=false, hideTimer=null, idleTimer=null, line=0, audioCtx=null, moved=false, safeCache=null;
 
-  function pad(){return window.innerWidth<=650?12:16}
-  function topMin(){return window.innerWidth<=650?72:86}
-  function clamp(left,top){
-    var p=pad(), w=wrap.offsetWidth, h=wrap.offsetHeight, sh=6;
-    var maxL=Math.max(p, window.innerWidth-w-p-sh);
-    var maxT=Math.max(topMin(), window.innerHeight-h-p-sh);
-    return {left:Math.max(p,Math.min(left,maxL)), top:Math.max(topMin(),Math.min(top,maxT))};
+  function view(){
+    var v=window.visualViewport;
+    if(v&&v.width&&v.height) return {left:v.offsetLeft||0, top:v.offsetTop||0, w:v.width, h:v.height};
+    var h=window.innerHeight, w=window.innerWidth;
+    try{
+      var probe=document.createElement('div');
+      probe.style.cssText='position:fixed;left:0;top:0;height:100dvh;width:100dvw;pointer-events:none;visibility:hidden;';
+      document.body.appendChild(probe);
+      if(probe.offsetHeight) h=probe.offsetHeight;
+      if(probe.offsetWidth) w=probe.offsetWidth;
+      probe.remove();
+    }catch(e){}
+    return {left:0, top:0, w:w, h:h};
+  }
+  function safe(){
+    if(safeCache) return safeCache;
+    function read(prop, fallbackCss, fb){
+      var dummy=document.createElement('div');
+      dummy.style.cssText='position:absolute;visibility:hidden;'+prop+':max('+fb+'px,env('+fallbackCss+',0px));';
+      document.body.appendChild(dummy);
+      var n=parseFloat(getComputedStyle(dummy)[prop]);
+      dummy.remove();
+      return isNaN(n)?fb:n;
+    }
+    var mobile=view().w<=650;
+    var fb=mobile?16:20;
+    safeCache={
+      t: read('paddingTop','safe-area-inset-top', 0) || 0,
+      r: read('paddingRight','safe-area-inset-right', fb),
+      b: read('paddingBottom','safe-area-inset-bottom', fb),
+      l: read('paddingLeft','safe-area-inset-left', fb)
+    };
+    return safeCache;
+  }
+  function size(){
+    return {w: wrap.offsetWidth|| (view().w<=650?64:72), h: wrap.offsetHeight|| (view().w<=650?64:72)};
+  }
+  function clamp(left, top){
+    var v=view(), s=safe(), z=size(), sh=8, nav=(v.w<=650?72:86);
+    var minL=v.left+s.l, minT=Math.max(v.top+s.t, nav);
+    var maxL=v.left+v.w-z.w-s.r-sh;
+    var maxT=v.top+v.h-z.h-s.b-sh;
+    if(maxL<minL) maxL=minL;
+    if(maxT<minT) maxT=minT;
+    return {left:Math.max(minL, Math.min(left, maxL)), top:Math.max(minT, Math.min(top, maxT))};
   }
   function apply(pos){
     wrap.style.left=Math.round(pos.left)+'px';
     wrap.style.top=Math.round(pos.top)+'px';
     wrap.style.right='auto';
     wrap.style.bottom='auto';
+    wrap.classList.add('moved');
+    moved=true;
   }
-  function overlaps(a,b){return !(a.right<b.left||a.left>b.right||a.bottom<b.top||a.top>b.bottom)}
-  function defaultPos(){
-    var p=pad(), w=wrap.offsetWidth, h=wrap.offsetHeight;
-    var left=window.innerWidth-w-p-6, top=window.innerHeight-h-p-6;
-    var btns=document.querySelector('.hero .buttons');
-    if(btns&&window.innerWidth<=650){
-      var br=btns.getBoundingClientRect();
-      if(overlaps({left:left,top:top,right:left+w,bottom:top+h}, br)){
-        if(br.bottom+16+h<=window.innerHeight-p) top=br.bottom+16;
-        else top=Math.max(topMin(), br.top-h-16);
-      }
-    }
-    return clamp(left,top);
+  function useDefault(){
+    wrap.style.left='';
+    wrap.style.top='';
+    wrap.style.right='';
+    wrap.style.bottom='';
+    wrap.classList.remove('moved');
+    moved=false;
+  }
+  function onScreen(pos){
+    var v=view(), z=size(), slop=8;
+    if(!pos||typeof pos.left!=='number'||typeof pos.top!=='number') return false;
+    if(!isFinite(pos.left)||!isFinite(pos.top)) return false;
+    var l=pos.left, t=pos.top, r=l+z.w, b=t+z.h;
+    var vl=v.left, vt=v.top, vr=v.left+v.w, vb=v.top+v.h;
+    return l>=vl-slop && t>=vt-slop && r<=vr+slop && b<=vb+slop;
   }
   function save(){
-    var r=wrap.getBoundingClientRect();
-    try{localStorage.setItem(KEY, JSON.stringify({left:r.left,top:r.top}))}catch(e){}
+    var r=wrap.getBoundingClientRect(), v=view();
+    try{localStorage.setItem(KEY, JSON.stringify({left:r.left, top:r.top, vw:v.w, vh:v.h}))}catch(e){}
+  }
+  function clearSaved(){
+    try{localStorage.removeItem(KEY)}catch(e){}
   }
   function restore(){
     try{
       var o=JSON.parse(localStorage.getItem(KEY)||'');
-      if(o&&typeof o.left==='number'&&typeof o.top==='number') return clamp(o.left,o.top);
-    }catch(e){}
-    return defaultPos();
+      if(!o||typeof o.left!=='number'||typeof o.top!=='number') return null;
+      if(!onScreen(o)) return null;
+      return clamp(o.left, o.top);
+    }catch(e){ return null; }
   }
+
   function placeToast(){
-    var r=wrap.getBoundingClientRect();
+    var r=wrap.getBoundingClientRect(), v=view();
     var midX=r.left+r.width/2, midY=r.top+r.height/2;
-    toast.classList.toggle('to-right', midX<window.innerWidth*0.55);
-    toast.classList.toggle('to-left', midX>=window.innerWidth*0.55);
-    toast.classList.toggle('to-bottom', midY<window.innerHeight*0.45);
-    toast.classList.toggle('to-top', midY>=window.innerHeight*0.45);
+    toast.classList.toggle('to-right', midX<v.left+v.w*0.55);
+    toast.classList.toggle('to-left', midX>=v.left+v.w*0.55);
+    toast.classList.toggle('to-bottom', midY<v.top+v.h*0.45);
+    toast.classList.toggle('to-top', midY>=v.top+v.h*0.45);
   }
   function ding(){
     if(reduce)return;
@@ -486,14 +535,14 @@ if it sounds too formal, i rewrite it.
       if(!audioCtx) audioCtx=new AC();
       if(audioCtx.state==='suspended') audioCtx.resume();
       var now=audioCtx.currentTime;
-      function tone(freq,start,dur,vol){
+      function tone(freq,t0,dur,vol){
         var o=audioCtx.createOscillator(), g=audioCtx.createGain();
-        o.type='sine'; o.frequency.setValueAtTime(freq,start);
-        g.gain.setValueAtTime(0,start);
-        g.gain.linearRampToValueAtTime(vol,start+0.018);
-        g.gain.exponentialRampToValueAtTime(0.0008,start+dur);
+        o.type='sine'; o.frequency.setValueAtTime(freq,t0);
+        g.gain.setValueAtTime(0,t0);
+        g.gain.linearRampToValueAtTime(vol,t0+0.018);
+        g.gain.exponentialRampToValueAtTime(0.0008,t0+dur);
         o.connect(g); g.connect(audioCtx.destination);
-        o.start(start); o.stop(start+dur+0.02);
+        o.start(t0); o.stop(t0+dur+0.02);
       }
       tone(880, now, 0.16, 0.045);
       tone(1318.5, now+0.11, 0.28, 0.035);
@@ -504,10 +553,29 @@ if it sounds too formal, i rewrite it.
     toast.setAttribute('aria-hidden','true');
     btn.setAttribute('aria-expanded','false');
   }
+  function stopIdle(){
+    wrap.classList.remove('idle');
+    btn.classList.remove('attn');
+    clearTimeout(idleTimer);
+    idleTimer=null;
+  }
+  function startIdle(){
+    if(reduce) return;
+    wrap.classList.add('idle');
+    function tick(){
+      if(!wrap.classList.contains('idle')) return;
+      btn.classList.remove('attn');
+      void btn.offsetWidth;
+      btn.classList.add('attn');
+      idleTimer=setTimeout(tick, 6000+Math.random()*2000);
+    }
+    idleTimer=setTimeout(tick, 6000+Math.random()*2000);
+  }
   function ring(){
+    stopIdle();
     btn.classList.add('cleared');
     if(!reduce){
-      btn.classList.remove('ring');
+      btn.classList.remove('ring','attn');
       void btn.offsetWidth;
       btn.classList.add('ring');
     }
@@ -523,53 +591,74 @@ if it sounds too formal, i rewrite it.
     hideTimer=setTimeout(hideToast, 4000);
   }
 
-  apply(restore());
+  var saved=restore();
+  if(saved) apply(saved);
+  else { clearSaved(); useDefault(); }
+  startIdle();
 
-  btn.addEventListener('pointerdown', function(e){
+  function onDown(e){
+    if(e.isPrimary===false) return;
     if(e.button) return;
+    if(e.target&&e.target.closest&&e.target.closest('.bell-toast')) return;
+    if(e.cancelable) e.preventDefault();
     var r=wrap.getBoundingClientRect();
     start={x:e.clientX,y:e.clientY,left:r.left,top:r.top,id:e.pointerId};
     dragged=false;
-    try{btn.setPointerCapture(e.pointerId)}catch(err){}
-  });
-  btn.addEventListener('pointermove', function(e){
+    try{wrap.setPointerCapture(e.pointerId)}catch(err){}
+  }
+  function onMove(e){
     if(!start||e.pointerId!==start.id) return;
+    if(e.cancelable) e.preventDefault();
     var dx=e.clientX-start.x, dy=e.clientY-start.y;
     if(!dragged && dx*dx+dy*dy<64) return;
     dragged=true;
+    stopIdle();
     wrap.classList.add('dragging');
     apply(clamp(start.left+dx, start.top+dy));
     if(toast.classList.contains('open')) placeToast();
-  });
-  function endDrag(e){
+  }
+  function onUp(e){
     if(!start|| (e&&start.id!=null&&e.pointerId!==start.id)) return;
     start=null;
     wrap.classList.remove('dragging');
     if(dragged){
       save();
       suppress=true;
-      setTimeout(function(){suppress=false}, 50);
+      setTimeout(function(){suppress=false}, 80);
       dragged=false;
       return;
     }
     ring();
     suppress=true;
-    setTimeout(function(){suppress=false}, 50);
+    setTimeout(function(){suppress=false}, 80);
   }
-  btn.addEventListener('pointerup', endDrag);
-  btn.addEventListener('pointercancel', endDrag);
-  btn.addEventListener('click', function(e){
+  var opts={passive:false};
+  wrap.addEventListener('pointerdown', onDown, opts);
+  wrap.addEventListener('pointermove', onMove, opts);
+  wrap.addEventListener('pointerup', onUp, opts);
+  wrap.addEventListener('pointercancel', onUp, opts);
+  wrap.addEventListener('click', function(e){
     if(suppress){ e.preventDefault(); e.stopPropagation(); return; }
+    if(e.target&&e.target.closest&&e.target.closest('.bell-toast')) return;
     ring();
   });
   btn.addEventListener('keydown', function(e){
     if(e.key==='Escape') hideToast();
   });
-  window.addEventListener('resize', function(){
+  function reclamp(){
+    safeCache=null;
+    if(!moved) return;
     var r=wrap.getBoundingClientRect();
-    apply(clamp(r.left,r.top));
+    var pos=clamp(r.left, r.top);
+    if(!onScreen(pos)){ clearSaved(); useDefault(); }
+    else apply(pos);
     if(toast.classList.contains('open')) placeToast();
-  });
+  }
+  window.addEventListener('resize', reclamp);
+  if(window.visualViewport){
+    visualViewport.addEventListener('resize', reclamp);
+    visualViewport.addEventListener('scroll', reclamp);
+  }
 })();
 </script>
 
