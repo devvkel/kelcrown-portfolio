@@ -168,15 +168,15 @@ html:not(.js) .intro{display:none!important}
 html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ease}
 .intro-eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:950;color:var(--muted);margin:0 0 12px;text-align:center}
 .intro-stage{position:relative;width:min(440px,calc(100vw - 40px));display:flex;flex-direction:column;align-items:center;overflow:visible}
-.intro-char-wrap{position:relative;width:170px;height:204px;flex:none;margin:0 0 6px;z-index:4;pointer-events:none;opacity:0;transform:translateY(16px);transform-origin:center bottom}
+.intro-char-wrap{position:relative;width:170px;height:204px;flex:none;align-self:flex-end;margin:-8px 32px 4px 0;z-index:5;pointer-events:none;opacity:0;transform:translateY(16px);transform-origin:center bottom}
 .intro-char-wrap.ready-char{opacity:1;transform:none}
 .intro-char-wrap.in{animation:intro-enter .7s cubic-bezier(.22,.7,.2,1) both}
 .intro-char-wrap.idle{animation:intro-breathe 2.6s ease-in-out infinite}
-.intro-char-wrap.press{animation:none;transition:transform .32s cubic-bezier(.22,.7,.2,1);transform:translate(var(--dx,0),var(--dy,0)) scale(1.03) rotate(5deg);z-index:5}
+.intro-char-wrap.press{animation:none;transition:transform .32s cubic-bezier(.22,.7,.2,1);transform:translate(var(--dx,0),var(--dy,0)) scale(1.02) rotate(-5deg);z-index:6}
 .intro-char-wrap.rest{animation:none;transition:transform .32s cubic-bezier(.22,.7,.2,1);transform:none}
 .intro-char-wrap svg{width:170px;height:204px;display:block;overflow:visible;filter:drop-shadow(0 8px 7px rgba(16,17,20,.18));background:none}
 .intro-arm{transform-box:view-box;transform-origin:78% 50%}
-.intro-bubble{position:absolute;top:32px;left:auto;right:78%;background:#fff;border:2px solid var(--ink);color:var(--ink);border-radius:14px;padding:6px 9px;font-size:13px;font-weight:950;letter-spacing:-.02em;line-height:1;box-shadow:3px 3px 0 var(--ink);opacity:0;transform:translateY(4px);transform-origin:right bottom;white-space:nowrap;z-index:6}
+.intro-bubble{position:absolute;top:52px;left:auto;right:78%;background:#fff;border:2px solid var(--ink);color:var(--ink);border-radius:14px;padding:6px 9px;font-size:13px;font-weight:950;letter-spacing:-.02em;line-height:1;box-shadow:3px 3px 0 var(--ink);opacity:0;transform:translateY(4px);transform-origin:right bottom;white-space:nowrap;z-index:7}
 .intro-bubble.on{opacity:1;transform:none;transition:opacity .22s ease,transform .22s ease}
 .intro-bubble:after{content:"";position:absolute;left:auto;right:10px;bottom:-5px;width:9px;height:9px;background:#fff;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg);border-radius:0 0 2px 0}
 .intro-card{width:100%;background:#fff;border:2px solid var(--ink);border-radius:24px;padding:18px 18px 16px;box-shadow:10px 10px 0 var(--ink);transform:translateY(10px) scale(.98);opacity:0;transition:transform .28s cubic-bezier(.2,.7,.2,1),opacity .28s ease;position:relative;z-index:1}
@@ -197,9 +197,9 @@ html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ea
 .intro-post{appearance:none;-webkit-appearance:none;border:2px solid var(--ink);background:var(--lime);color:var(--ink);font-family:inherit;font-weight:950;font-size:14px;letter-spacing:-.02em;padding:9px 16px;border-radius:12px;box-shadow:4px 4px 0 var(--ink);cursor:default;margin-left:auto}
 .intro-post.down{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
 .intro-post.sent{background:var(--ink);color:#fff;box-shadow:4px 4px 0 var(--pink)}
-.intro-bar{width:min(440px,calc(100vw - 40px));height:5px;margin-top:16px;background:#fff;border:1.5px solid var(--ink);border-radius:99px;overflow:hidden;box-shadow:3px 3px 0 var(--ink)}
+.intro-bar{width:min(440px,calc(100vw - 40px));height:5px;margin-top:14px;background:#fff;border:1.5px solid var(--ink);border-radius:99px;overflow:hidden;box-shadow:3px 3px 0 var(--ink);position:relative;z-index:2;flex:none}
 .intro-bar>i{display:block;height:100%;width:0;background:var(--lime);border-radius:99px}
-.intro-hint{margin:16px 0 0;font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.04em}
+.intro-hint{margin:14px 0 0;font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.04em;position:relative;z-index:2;flex:none;text-align:center}
 .intro-hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .intro-heart{position:absolute;font-size:14px;line-height:1;animation:intro-heart .7s ease-out forwards;color:#ff4d57}
 @keyframes intro-enter{0%{transform:translateY(16px);opacity:0}100%{transform:translateY(0);opacity:1}}
@@ -208,9 +208,9 @@ html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ea
 @keyframes intro-heart{0%{transform:translate(-50%,0) scale(.6);opacity:1}100%{transform:translate(calc(-50% + var(--hx,0px)),-56px) scale(1.1);opacity:0}}
 @media(max-width:650px){
   .intro-text{font-size:18px;min-height:3.3em}
-  .intro-char-wrap{width:140px;height:168px;margin-bottom:4px}
+  .intro-char-wrap{width:140px;height:168px;margin:-2px 28px 4px 0}
   .intro-char-wrap svg{width:140px;height:168px}
-  .intro-bubble{font-size:12px;padding:5px 8px;top:24px}
+  .intro-bubble{font-size:12px;padding:5px 8px;top:44px}
   .intro-card{padding:16px 14px 14px;border-radius:22px;box-shadow:7px 7px 0 var(--ink)}
   .intro-who{font-size:13px}
   .intro-mini{width:32px;height:32px}
@@ -234,6 +234,22 @@ html.intro-reduce .intro-arm{animation:none;transform:none}
 <div class="intro" id="intro" role="dialog" aria-label="drafting your first impression" aria-modal="true">
 <div class="intro-eyebrow">drafting your first impression</div>
 <div class="intro-stage">
+<div class="intro-card" id="intro-card">
+<div class="intro-head">
+<span class="intro-mini post-pfp" aria-hidden="true"></span>
+<span class="intro-who">kel🧛ツ<small>@kelcrown</small></span>
+</div>
+<p class="intro-text"><span id="intro-type"></span><span class="intro-caret" id="intro-caret"></span></p>
+<div class="intro-row">
+<div class="intro-metrics" id="intro-metrics" aria-hidden="true">
+<span data-k="like" title="likes"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13.6s-5.3-3.2-6.4-6.2C.8 5.4 2 3.4 4.2 3.4c1.3 0 2.2.7 2.8 1.7.6-1 1.5-1.7 2.8-1.7 2.2 0 3.4 2 2.6 4-1.1 3-6.4 6.2-6.4 6.2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><b>0</b></span>
+<span data-k="reply" title="replies"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8c0-2.8 2.5-5 5.5-5S14 5.2 14 8s-2.5 5-5.5 5c-.6 0-1.2-.1-1.7-.2L3 13.5 3.8 10C3.3 9.4 3 8.7 3 8z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><b>0</b></span>
+<span data-k="repost" title="reposts"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 4h6.5a2 2 0 0 1 2 2v2M11 12H4.5a2 2 0 0 1-2-2V8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M3.5 2.5 5.5 4.5 3.5 6.5M12.5 9.5 10.5 11.5 12.5 13.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><b>0</b></span>
+<span data-k="bookmark" title="bookmarks"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3.2h8v10.3L8 11.2 4 13.5V3.2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><b>0</b></span>
+</div>
+<button type="button" class="intro-post" id="intro-post" tabindex="-1" aria-hidden="true">Post</button>
+</div>
+</div>
 <div class="intro-char-wrap" id="intro-char" aria-hidden="true">
 <div class="intro-bubble" id="intro-bubble"><span id="intro-hi">hi!</span></div>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="170" height="204" fill="none" aria-hidden="true">
@@ -348,22 +364,6 @@ html.intro-reduce .intro-arm{animation:none;transform:none}
 </svg>
 
 </div>
-<div class="intro-card" id="intro-card">
-<div class="intro-head">
-<span class="intro-mini post-pfp" aria-hidden="true"></span>
-<span class="intro-who">kel🧛ツ<small>@kelcrown</small></span>
-</div>
-<p class="intro-text"><span id="intro-type"></span><span class="intro-caret" id="intro-caret"></span></p>
-<div class="intro-row">
-<div class="intro-metrics" id="intro-metrics" aria-hidden="true">
-<span data-k="like" title="likes"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13.6s-5.3-3.2-6.4-6.2C.8 5.4 2 3.4 4.2 3.4c1.3 0 2.2.7 2.8 1.7.6-1 1.5-1.7 2.8-1.7 2.2 0 3.4 2 2.6 4-1.1 3-6.4 6.2-6.4 6.2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><b>0</b></span>
-<span data-k="reply" title="replies"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8c0-2.8 2.5-5 5.5-5S14 5.2 14 8s-2.5 5-5.5 5c-.6 0-1.2-.1-1.7-.2L3 13.5 3.8 10C3.3 9.4 3 8.7 3 8z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><b>0</b></span>
-<span data-k="repost" title="reposts"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 4h6.5a2 2 0 0 1 2 2v2M11 12H4.5a2 2 0 0 1-2-2V8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M3.5 2.5 5.5 4.5 3.5 6.5M12.5 9.5 10.5 11.5 12.5 13.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><b>0</b></span>
-<span data-k="bookmark" title="bookmarks"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3.2h8v10.3L8 11.2 4 13.5V3.2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><b>0</b></span>
-</div>
-<button type="button" class="intro-post" id="intro-post" tabindex="-1" aria-hidden="true">Post</button>
-</div>
-</div>
 </div>
 <div class="intro-bar" aria-hidden="true"><i id="intro-bar"></i></div>
 <p class="intro-hint">tap, click or press a key to skip</p>
@@ -469,12 +469,13 @@ html.intro-reduce .intro-arm{animation:none;transform:none}
     if(done||!ava||!post) return;
     var ar=ava.getBoundingClientRect();
     var pr=post.getBoundingClientRect();
-    var dx=(pr.left+pr.width/2)-(ar.left+ar.width/2);
-    var dy=(pr.top+pr.height*0.15)-(ar.top+ar.height/2);
+    var dx=(pr.left+pr.width/2)-(ar.left+ar.width*0.68);
+    dx=Math.round(Math.max(-12,Math.min(12,dx*0.4)));
+    var dy=Math.round(Math.max(-24,Math.min(-16,(pr.bottom-ar.top)*0.12-20)));
     ava.classList.remove('in','idle','rest');
     ava.classList.add('ready-char');
-    ava.style.setProperty('--dx', Math.round(dx*0.78)+'px');
-    ava.style.setProperty('--dy', Math.round(dy)+'px');
+    ava.style.setProperty('--dx', dx+'px');
+    ava.style.setProperty('--dy', dy+'px');
     ava.classList.add('press');
     later(function(){ if(!done) post.classList.add('down'); }, 180);
     later(function(){
