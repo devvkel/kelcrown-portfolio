@@ -166,14 +166,18 @@ html:not(.js) .intro{display:none!important}
 .intro{position:fixed;inset:0;z-index:200000;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:24px 20px calc(24px + env(safe-area-inset-bottom,0px));user-select:none;-webkit-user-select:none;touch-action:none}
 .intro.out{transform:translateY(-110%);transition:transform .42s cubic-bezier(.7,.1,.2,1)}
 html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ease}
-.intro-eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:950;color:var(--muted);margin:0 0 16px;text-align:center}
-.intro-card{width:min(440px,calc(100vw - 40px));background:#fff;border:2px solid var(--ink);border-radius:24px;padding:18px 18px 16px;box-shadow:10px 10px 0 var(--ink);transform:translateY(10px) scale(.98);opacity:0;transition:transform .28s cubic-bezier(.2,.7,.2,1),opacity .28s ease}
+.intro-eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:950;color:var(--muted);margin:0 0 12px;text-align:center}
+.intro-stage{position:relative;width:min(440px,calc(100vw - 40px));display:flex;flex-direction:column;align-items:center}
+.intro-patrick{width:160px;height:160px;border-radius:50%;border:3px solid var(--ink);flex:none;background-color:#eee;box-shadow:7px 7px 0 var(--ink);opacity:0;transform:scale(0);transform-origin:center bottom;z-index:4;position:relative;margin:0 0 10px;pointer-events:none}
+.intro-patrick.ready-char{opacity:1;transform:none}
+.intro-patrick.in{animation:intro-pop .5s cubic-bezier(.2,1.4,.3,1) both}
+.intro-patrick.wiggle{animation:intro-wave .38s ease-in-out 2}
+.intro-patrick.press{animation:none;transition:transform .22s cubic-bezier(.2,.8,.2,1);transform:translate(var(--dx,0),var(--dy,0)) scale(1.08) rotate(8deg);z-index:5}
+.intro-patrick.rest{animation:none;transition:transform .28s cubic-bezier(.2,.8,.2,1);transform:none}
+.intro-card{width:100%;background:#fff;border:2px solid var(--ink);border-radius:24px;padding:18px 18px 16px;box-shadow:10px 10px 0 var(--ink);transform:translateY(10px) scale(.98);opacity:0;transition:transform .28s cubic-bezier(.2,.7,.2,1),opacity .28s ease;position:relative;z-index:1}
 .intro.ready .intro-card,.intro.done-state .intro-card{transform:none;opacity:1}
-.intro-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;min-height:48px}
-.intro-ava{width:48px;height:48px;border-radius:50%;border:2px solid var(--ink);flex:none;background-color:#eee;box-shadow:3px 3px 0 var(--ink);transform:scale(0);opacity:0;transform-origin:center}
-.intro-ava.in{animation:intro-pop .45s cubic-bezier(.2,1.4,.3,1) forwards}
-.intro-ava.wiggle{animation:intro-wiggle .32s ease-in-out 2}
-.intro-ava.press{transition:transform .2s cubic-bezier(.2,.8,.2,1);transform:translate(var(--dx,0),var(--dy,0)) scale(1.06);z-index:2}
+.intro-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;min-height:36px}
+.intro-mini{width:36px;height:36px;border-radius:50%;border:2px solid var(--ink);flex:none;box-shadow:2px 2px 0 var(--ink)}
 .intro-who{font-size:14px;font-weight:900;line-height:1.2}
 .intro-who small{display:block;font-size:12px;font-weight:750;color:var(--muted)}
 .intro-text{min-height:3.1em;margin:0 0 16px;font-size:22px;line-height:1.35;letter-spacing:-.035em;font-weight:800;color:var(--ink)}
@@ -193,17 +197,25 @@ html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ea
 .intro-hint{margin:16px 0 0;font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.04em}
 .intro-hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .intro-heart{position:absolute;font-size:14px;line-height:1;animation:intro-heart .7s ease-out forwards;color:#ff4d57}
-@keyframes intro-pop{0%{transform:scale(0) rotate(-16deg);opacity:0}60%{transform:scale(1.16) rotate(8deg);opacity:1}100%{transform:scale(1) rotate(0);opacity:1}}
-@keyframes intro-wiggle{0%,100%{transform:rotate(0)}30%{transform:rotate(-10deg)}70%{transform:rotate(9deg)}}
+@keyframes intro-pop{0%{transform:scale(0) rotate(-18deg) translateY(18px);opacity:0}55%{transform:scale(1.14) rotate(8deg) translateY(-8px);opacity:1}100%{transform:scale(1) rotate(0) translateY(0);opacity:1}}
+@keyframes intro-wave{0%,100%{transform:rotate(0) translateY(0)}25%{transform:rotate(-16deg) translateY(-10px)}50%{transform:rotate(14deg) translateY(-4px)}75%{transform:rotate(-10deg) translateY(-8px)}}
 @keyframes intro-blink{50%{opacity:0}}
 @keyframes intro-heart{0%{transform:translate(-50%,0) scale(.6);opacity:1}100%{transform:translate(calc(-50% + var(--hx,0px)),-56px) scale(1.1);opacity:0}}
-@media(max-width:650px){.intro-text{font-size:18px;min-height:3.3em}.intro-ava{width:42px;height:42px}.intro-card{padding:16px 14px 14px;border-radius:22px;box-shadow:7px 7px 0 var(--ink)}.intro-who{font-size:13px}}
+@media(max-width:650px){
+  .intro-text{font-size:18px;min-height:3.3em}
+  .intro-patrick{width:128px;height:128px;margin-bottom:8px;box-shadow:5px 5px 0 var(--ink)}
+  .intro-card{padding:16px 14px 14px;border-radius:22px;box-shadow:7px 7px 0 var(--ink)}
+  .intro-who{font-size:13px}
+  .intro-mini{width:32px;height:32px}
+}
 @media(prefers-reduced-motion:reduce){
   .intro-card,.intro-metrics,.intro.out,html.intro-reduce .intro.out{transition:opacity .32s ease}
-  .intro-ava,.intro-ava.in,.intro-ava.wiggle,.intro-ava.press{animation:none;transition:none;transform:none;opacity:1}
+  .intro-patrick,.intro-patrick.ready-char,.intro-patrick.in,.intro-patrick.wiggle,.intro-patrick.press,.intro-patrick.rest{animation:none;transition:none;transform:none;opacity:1}
   .intro-caret{animation:none}
   .intro-heart{animation:none;display:none}
 }
+html.intro-reduce .intro-patrick,html.intro-reduce .intro-patrick.ready-char,html.intro-reduce .intro-patrick.in,html.intro-reduce .intro-patrick.wiggle,html.intro-reduce .intro-patrick.press,html.intro-reduce .intro-patrick.rest{animation:none;transition:none;transform:none;opacity:1}
+
 
 </style>
 <script>document.documentElement.classList.add('js');document.documentElement.classList.add((window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)?'intro-reduce':'intro-pending');</script>
@@ -211,9 +223,11 @@ html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ea
 <body>
 <div class="intro" id="intro" role="dialog" aria-label="drafting your first impression" aria-modal="true">
 <div class="intro-eyebrow">drafting your first impression</div>
+<div class="intro-stage">
+<span class="intro-patrick post-pfp" id="intro-ava" aria-hidden="true"></span>
 <div class="intro-card" id="intro-card">
 <div class="intro-head">
-<span class="intro-ava post-pfp" id="intro-ava" aria-hidden="true"></span>
+<span class="intro-mini post-pfp" aria-hidden="true"></span>
 <span class="intro-who">kel🧛ツ<small>@kelcrown</small></span>
 </div>
 <p class="intro-text"><span id="intro-type"></span><span class="intro-caret" id="intro-caret"></span></p>
@@ -225,6 +239,7 @@ html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ea
 <span data-k="bookmark" title="bookmarks"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3.2h8v10.3L8 11.2 4 13.5V3.2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><b>0</b></span>
 </div>
 <button type="button" class="intro-post" id="intro-post" tabindex="-1" aria-hidden="true">Post</button>
+</div>
 </div>
 </div>
 <div class="intro-bar" aria-hidden="true"><i id="intro-bar"></i></div>
@@ -243,7 +258,7 @@ html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ea
   var metrics=document.getElementById('intro-metrics');
   var bar=document.getElementById('intro-bar');
   var phrase='you build it. i make people care.';
-  var timers=[], raf=0, done=false, t0=0, DURATION=2400;
+  var timers=[], raf=0, done=false, t0=0, DURATION=2360;
 
   function later(fn,ms){var id=setTimeout(fn,ms);timers.push(id);return id;}
   function clearAll(){timers.forEach(clearTimeout);timers=[];if(raf) cancelAnimationFrame(raf);raf=0;}
@@ -283,13 +298,13 @@ html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ea
     }
     if(bar) bar.style.width='100%';
     if(typeEl&&typeEl.textContent!==phrase) typeEl.textContent=phrase;
-    if(ava){ ava.classList.add('in'); ava.style.opacity='1'; ava.style.transform='none'; }
+    if(ava){ ava.classList.add('ready-char','rest'); ava.style.opacity='1'; ava.style.transform='none'; }
     end();
   }
 
   function tickBar(now){
     if(done) return;
-    var p=Math.min(1,(now-t0)/2100);
+    var p=Math.min(1,(now-t0)/2360);
     if(bar) bar.style.width=(p*100).toFixed(2)+'%';
     if(p<1) raf=requestAnimationFrame(tickBar);
   }
@@ -307,8 +322,12 @@ html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ea
 
   function popAva(){
     if(!ava||done) return;
-    ava.classList.add('in');
-    later(function(){ if(!done) ava.classList.add('wiggle'); }, 420);
+    ava.classList.add('ready-char','in');
+    later(function(){
+      if(done) return;
+      ava.classList.remove('in');
+      ava.classList.add('wiggle');
+    }, 500);
   }
 
   function pressPost(){
@@ -316,22 +335,23 @@ html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ea
     var ar=ava.getBoundingClientRect();
     var pr=post.getBoundingClientRect();
     var dx=(pr.left+pr.width/2)-(ar.left+ar.width/2);
-    var dy=(pr.top+pr.height/2)-(ar.top+ar.height/2);
+    var dy=(pr.top+pr.height*0.2)-(ar.top+ar.height/2);
     ava.classList.remove('wiggle','in');
-    ava.style.opacity='1';
-    ava.style.setProperty('--dx', Math.round(dx*0.82)+'px');
-    ava.style.setProperty('--dy', Math.round(dy*0.82)+'px');
+    ava.classList.add('ready-char');
+    ava.style.setProperty('--dx', Math.round(dx*0.78)+'px');
+    ava.style.setProperty('--dy', Math.round(dy)+'px');
     ava.classList.add('press');
-    later(function(){ if(!done) post.classList.add('down'); }, 140);
+    later(function(){ if(!done) post.classList.add('down'); }, 180);
     later(function(){
       if(done) return;
       post.classList.remove('down');
       post.classList.add('sent');
       post.textContent='Posted';
       ava.classList.remove('press');
+      ava.classList.add('rest');
       ava.style.removeProperty('--dx');
       ava.style.removeProperty('--dy');
-    }, 320);
+    }, 380);
   }
 
   function floatHearts(){
@@ -407,7 +427,7 @@ html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ea
       intro.classList.add('ready','done-state');
       if(typeEl) typeEl.textContent=phrase;
       if(caret) caret.classList.add('off');
-      if(ava){ ava.classList.add('in'); ava.style.transform='none'; ava.style.opacity='1'; }
+      if(ava){ ava.classList.add('ready-char','rest'); ava.style.transform='none'; ava.style.opacity='1'; }
       if(post){ post.classList.add('sent'); post.textContent='Posted'; }
       if(metrics){
         metrics.classList.add('on');
@@ -421,11 +441,11 @@ html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ea
       return;
     }
     later(function(){ intro.classList.add('ready'); }, 20);
-    later(typePhrase, 180);
-    later(popAva, 720);
-    later(pressPost, 1280);
-    later(runCounts, 1680);
-    later(end, 2180);
+    later(typePhrase, 160);
+    later(popAva, 380);
+    later(pressPost, 1400);
+    later(runCounts, 1860);
+    later(end, 2360);
   }
 
   intro.addEventListener('pointerdown', skip, {passive:false});
@@ -435,7 +455,7 @@ html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ea
   requestAnimationFrame(function(){
     requestAnimationFrame(function(){
       if(done) return;
-      later(function(){ if(!done) end(); }, 3000);
+      later(function(){ if(!done) end(); }, 3200);
       play();
     });
   });
