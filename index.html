@@ -167,13 +167,20 @@ html:not(.js) .intro{display:none!important}
 .intro.out{transform:translateY(-110%);transition:transform .42s cubic-bezier(.7,.1,.2,1)}
 html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ease}
 .intro-eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:950;color:var(--muted);margin:0 0 12px;text-align:center}
-.intro-stage{position:relative;width:min(440px,calc(100vw - 40px));display:flex;flex-direction:column;align-items:center}
-.intro-patrick{width:160px;height:160px;border-radius:50%;border:3px solid var(--ink);flex:none;background-color:#eee;box-shadow:7px 7px 0 var(--ink);opacity:0;transform:scale(0);transform-origin:center bottom;z-index:4;position:relative;margin:0 0 10px;pointer-events:none}
-.intro-patrick.ready-char{opacity:1;transform:none}
-.intro-patrick.in{animation:intro-pop .5s cubic-bezier(.2,1.4,.3,1) both}
-.intro-patrick.wiggle{animation:intro-wave .38s ease-in-out 2}
-.intro-patrick.press{animation:none;transition:transform .22s cubic-bezier(.2,.8,.2,1);transform:translate(var(--dx,0),var(--dy,0)) scale(1.08) rotate(8deg);z-index:5}
-.intro-patrick.rest{animation:none;transition:transform .28s cubic-bezier(.2,.8,.2,1);transform:none}
+.intro-stage{position:relative;width:min(440px,calc(100vw - 40px));display:flex;flex-direction:column;align-items:center;overflow:visible}
+.intro-char-wrap{position:relative;width:150px;height:188px;flex:none;margin:0 0 6px;z-index:4;pointer-events:none;opacity:0;transform:translateY(72px) scale(.92);transform-origin:center bottom}
+.intro-char-wrap.ready-char{opacity:1;transform:none}
+.intro-char-wrap.in{animation:intro-pop .5s cubic-bezier(.2,1.3,.2,1) both}
+.intro-char-wrap.wave .intro-arm{animation:intro-arm-wave .34s ease-in-out 2}
+.intro-char-wrap.jump{animation:intro-jump .32s cubic-bezier(.2,.8,.2,1)}
+.intro-char-wrap.press{animation:none;transition:transform .22s cubic-bezier(.2,.8,.2,1);transform:translate(var(--dx,0),var(--dy,0)) scale(1.06) rotate(8deg);z-index:5}
+.intro-char-wrap.dance{animation:intro-dance .55s ease-in-out infinite}
+.intro-char-wrap.rest{animation:none;transition:transform .28s cubic-bezier(.2,.8,.2,1);transform:none}
+.intro-char-wrap svg{width:150px;height:188px;display:block;overflow:visible;filter:drop-shadow(0 8px 7px rgba(16,17,20,.18));background:none}
+.intro-arm{transform-box:view-box;transform-origin:50px 100px}
+.intro-bubble{position:absolute;top:10px;left:78%;background:#fff;border:2px solid var(--ink);color:var(--ink);border-radius:14px;padding:6px 9px;font-size:13px;font-weight:950;letter-spacing:-.02em;line-height:1;box-shadow:3px 3px 0 var(--ink);opacity:0;transform:scale(.7);transform-origin:left bottom;white-space:nowrap;z-index:6}
+.intro-bubble.on{opacity:1;transform:none;transition:opacity .16s ease,transform .16s cubic-bezier(.2,1.2,.2,1)}
+.intro-bubble:after{content:"";position:absolute;left:12px;bottom:-5px;width:9px;height:9px;background:#fff;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg);border-radius:0 0 2px 0}
 .intro-card{width:100%;background:#fff;border:2px solid var(--ink);border-radius:24px;padding:18px 18px 16px;box-shadow:10px 10px 0 var(--ink);transform:translateY(10px) scale(.98);opacity:0;transition:transform .28s cubic-bezier(.2,.7,.2,1),opacity .28s ease;position:relative;z-index:1}
 .intro.ready .intro-card,.intro.done-state .intro-card{transform:none;opacity:1}
 .intro-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;min-height:36px}
@@ -197,24 +204,31 @@ html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ea
 .intro-hint{margin:16px 0 0;font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.04em}
 .intro-hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .intro-heart{position:absolute;font-size:14px;line-height:1;animation:intro-heart .7s ease-out forwards;color:#ff4d57}
-@keyframes intro-pop{0%{transform:scale(0) rotate(-18deg) translateY(18px);opacity:0}55%{transform:scale(1.14) rotate(8deg) translateY(-8px);opacity:1}100%{transform:scale(1) rotate(0) translateY(0);opacity:1}}
-@keyframes intro-wave{0%,100%{transform:rotate(0) translateY(0)}25%{transform:rotate(-16deg) translateY(-10px)}50%{transform:rotate(14deg) translateY(-4px)}75%{transform:rotate(-10deg) translateY(-8px)}}
+@keyframes intro-pop{0%{transform:translateY(80px) scale(.88);opacity:0}55%{transform:translateY(-14px) scale(1.06);opacity:1}75%{transform:translateY(5px) scale(.98);opacity:1}100%{transform:translateY(0) scale(1);opacity:1}}
+@keyframes intro-arm-wave{0%,100%{transform:rotate(8deg)}50%{transform:rotate(-38deg)}}
+@keyframes intro-jump{0%,100%{transform:translateY(0) scale(1)}40%{transform:translateY(-20px) scale(1.05)}70%{transform:translateY(4px) scale(.98)}}
+@keyframes intro-dance{0%,100%{transform:rotate(0) translateY(0)}25%{transform:rotate(-8deg) translateY(-5px)}50%{transform:rotate(0) translateY(0)}75%{transform:rotate(8deg) translateY(-5px)}}
 @keyframes intro-blink{50%{opacity:0}}
 @keyframes intro-heart{0%{transform:translate(-50%,0) scale(.6);opacity:1}100%{transform:translate(calc(-50% + var(--hx,0px)),-56px) scale(1.1);opacity:0}}
 @media(max-width:650px){
   .intro-text{font-size:18px;min-height:3.3em}
-  .intro-patrick{width:128px;height:128px;margin-bottom:8px;box-shadow:5px 5px 0 var(--ink)}
+  .intro-char-wrap{width:120px;height:150px;margin-bottom:4px}
+  .intro-char-wrap svg{width:120px;height:150px}
+  .intro-bubble{font-size:12px;padding:5px 8px;top:6px}
   .intro-card{padding:16px 14px 14px;border-radius:22px;box-shadow:7px 7px 0 var(--ink)}
   .intro-who{font-size:13px}
   .intro-mini{width:32px;height:32px}
 }
 @media(prefers-reduced-motion:reduce){
   .intro-card,.intro-metrics,.intro.out,html.intro-reduce .intro.out{transition:opacity .32s ease}
-  .intro-patrick,.intro-patrick.ready-char,.intro-patrick.in,.intro-patrick.wiggle,.intro-patrick.press,.intro-patrick.rest{animation:none;transition:none;transform:none;opacity:1}
+  .intro-char-wrap,.intro-char-wrap.ready-char,.intro-char-wrap.in,.intro-char-wrap.wave,.intro-char-wrap.jump,.intro-char-wrap.press,.intro-char-wrap.dance,.intro-char-wrap.rest{animation:none;transition:none;transform:none;opacity:1}
+  .intro-char-wrap.wave .intro-arm,.intro-arm{animation:none;transform:none}
+  .intro-bubble,.intro-bubble.on{transition:none;transform:none}
   .intro-caret{animation:none}
   .intro-heart{animation:none;display:none}
 }
-html.intro-reduce .intro-patrick,html.intro-reduce .intro-patrick.ready-char,html.intro-reduce .intro-patrick.in,html.intro-reduce .intro-patrick.wiggle,html.intro-reduce .intro-patrick.press,html.intro-reduce .intro-patrick.rest{animation:none;transition:none;transform:none;opacity:1}
+html.intro-reduce .intro-char-wrap,html.intro-reduce .intro-char-wrap.ready-char,html.intro-reduce .intro-char-wrap.in,html.intro-reduce .intro-char-wrap.wave,html.intro-reduce .intro-char-wrap.jump,html.intro-reduce .intro-char-wrap.press,html.intro-reduce .intro-char-wrap.dance,html.intro-reduce .intro-char-wrap.rest{animation:none;transition:none;transform:none;opacity:1}
+html.intro-reduce .intro-char-wrap.wave .intro-arm,html.intro-reduce .intro-arm{animation:none;transform:none}
 
 
 </style>
@@ -224,7 +238,89 @@ html.intro-reduce .intro-patrick,html.intro-reduce .intro-patrick.ready-char,htm
 <div class="intro" id="intro" role="dialog" aria-label="drafting your first impression" aria-modal="true">
 <div class="intro-eyebrow">drafting your first impression</div>
 <div class="intro-stage">
-<span class="intro-patrick post-pfp" id="intro-ava" aria-hidden="true"></span>
+<div class="intro-char-wrap" id="intro-char" aria-hidden="true">
+<div class="intro-bubble" id="intro-bubble"><span id="intro-hi">hi!</span></div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 200" width="150" height="188" fill="none" aria-hidden="true">
+  <ellipse cx="80" cy="192" rx="40" ry="6.5" fill="#101114" opacity=".15"/>
+
+  <g class="intro-arm">
+    <path fill="#ffa0b4" stroke="#101114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+      d="M50,90
+         C36,76 16,70 6,78
+         C-6,88 -2,108 14,116
+         C28,122 44,118 54,106
+         C58,100 56,94 50,90 Z"/>
+  </g>
+
+  <path fill="#ffa0b4" stroke="#101114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+    d="M110,94
+       C124,84 142,84 152,94
+       C164,106 158,124 142,126
+       C128,128 114,118 106,108
+       C102,102 104,96 110,94 Z"/>
+
+  <path fill="#ffa0b4" stroke="#101114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+    d="M80,16
+       C60,16 44,36 42,62
+       C40,80 44,92 50,100
+       C46,112 48,124 54,134
+       C38,142 22,158 24,178
+       C26,191 44,197 56,186
+       C64,178 68,164 70,152
+       C74,156 80,158 80,158
+       C80,158 86,156 90,152
+       C92,164 96,178 104,186
+       C116,197 134,191 136,178
+       C138,158 122,142 106,134
+       C112,124 114,112 110,100
+       C116,92 120,80 118,62
+       C116,36 100,16 80,16 Z"/>
+
+  <path fill="#b6e86a" stroke="#101114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+    d="M52,122
+       C58,114 68,110 80,110
+       C92,110 102,114 108,122
+       L112,150
+       C112,159 102,166 91,166
+       C86,166 83,161 80,161
+       C77,161 74,166 69,166
+       C58,166 48,159 48,150
+       Z"/>
+  <path d="M53,124 C64,119 96,119 107,124" stroke="#101114" stroke-width="1.7" stroke-linecap="round" fill="none" opacity=".5"/>
+
+  <g fill="#8b4cc4" stroke="none">
+    <g transform="translate(67,137)">
+      <circle cx="0" cy="-3.3" r="2.2"/>
+      <circle cx="3.1" cy="1.3" r="2.2"/>
+      <circle cx="-3.1" cy="1.3" r="2.2"/>
+      <circle cx="0" cy="0" r="1.55" fill="#f4eaff"/>
+    </g>
+    <g transform="translate(94,135)">
+      <circle cx="0" cy="-3.3" r="2.2"/>
+      <circle cx="3.1" cy="1.3" r="2.2"/>
+      <circle cx="-3.1" cy="1.3" r="2.2"/>
+      <circle cx="0" cy="0" r="1.55" fill="#f4eaff"/>
+    </g>
+    <g transform="translate(80,149)">
+      <circle cx="0" cy="-2.6" r="1.8"/>
+      <circle cx="2.5" cy="1" r="1.8"/>
+      <circle cx="-2.5" cy="1" r="1.8"/>
+      <circle cx="0" cy="0" r="1.25" fill="#f4eaff"/>
+    </g>
+  </g>
+
+  <path d="M54,47 Q64,36 74,43" stroke="#101114" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M88,42 Q99,32 108,44" stroke="#101114" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <ellipse cx="67" cy="58" rx="11.2" ry="12.4" fill="#fff" stroke="#101114" stroke-width="2.6"/>
+  <ellipse cx="95" cy="59" rx="11.2" ry="12.4" fill="#fff" stroke="#101114" stroke-width="2.6"/>
+  <circle cx="69" cy="60" r="4.7" fill="#101114"/>
+  <circle cx="97" cy="61" r="4.7" fill="#101114"/>
+  <circle cx="70.8" cy="58.3" r="1.5" fill="#fff"/>
+  <circle cx="98.8" cy="59.3" r="1.5" fill="#fff"/>
+  <ellipse cx="81" cy="82" rx="16.5" ry="13" fill="#2a1018" stroke="#101114" stroke-width="2.6"/>
+  <path d="M69,86 Q81,97 93,86 Q81,92 69,86 Z" fill="#ff6b8a"/>
+</svg>
+</div>
 <div class="intro-card" id="intro-card">
 <div class="intro-head">
 <span class="intro-mini post-pfp" aria-hidden="true"></span>
@@ -253,7 +349,9 @@ html.intro-reduce .intro-patrick,html.intro-reduce .intro-patrick.ready-char,htm
   var reduce=root.classList.contains('intro-reduce')||(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
   var typeEl=document.getElementById('intro-type');
   var caret=document.getElementById('intro-caret');
-  var ava=document.getElementById('intro-ava');
+  var ava=document.getElementById('intro-char');
+  var bubble=document.getElementById('intro-bubble');
+  var hiEl=document.getElementById('intro-hi');
   var post=document.getElementById('intro-post');
   var metrics=document.getElementById('intro-metrics');
   var bar=document.getElementById('intro-bar');
@@ -298,7 +396,8 @@ html.intro-reduce .intro-patrick,html.intro-reduce .intro-patrick.ready-char,htm
     }
     if(bar) bar.style.width='100%';
     if(typeEl&&typeEl.textContent!==phrase) typeEl.textContent=phrase;
-    if(ava){ ava.classList.add('ready-char','rest'); ava.style.opacity='1'; ava.style.transform='none'; }
+    if(ava){ ava.className='intro-char-wrap ready-char rest'; ava.style.opacity='1'; ava.style.transform='none'; }
+    if(bubble){ if(hiEl&&!hiEl.textContent) hiEl.textContent='hi!'; bubble.classList.add('on'); }
     end();
   }
 
@@ -320,14 +419,34 @@ html.intro-reduce .intro-patrick,html.intro-reduce .intro-patrick.ready-char,htm
     step();
   }
 
+  function showBubble(){
+    if(bubble) bubble.classList.add('on');
+  }
+  function cycleHi(){
+    var words=['hi!','hola!','bonjour!','你好!','ciao!'];
+    var i=0;
+    function step(){
+      if(done||!hiEl) return;
+      hiEl.textContent=words[i];
+      showBubble();
+      i++;
+      if(i<words.length) later(step, 370);
+    }
+    step();
+  }
   function popAva(){
     if(!ava||done) return;
     ava.classList.add('ready-char','in');
-    later(function(){
-      if(done) return;
-      ava.classList.remove('in');
-      ava.classList.add('wiggle');
-    }, 500);
+  }
+  function waveArm(){
+    if(!ava||done) return;
+    ava.classList.remove('in');
+    ava.classList.add('ready-char','wave');
+  }
+  function happyJump(){
+    if(!ava||done) return;
+    ava.classList.remove('in','wave');
+    ava.classList.add('ready-char','jump');
   }
 
   function pressPost(){
@@ -335,8 +454,8 @@ html.intro-reduce .intro-patrick,html.intro-reduce .intro-patrick.ready-char,htm
     var ar=ava.getBoundingClientRect();
     var pr=post.getBoundingClientRect();
     var dx=(pr.left+pr.width/2)-(ar.left+ar.width/2);
-    var dy=(pr.top+pr.height*0.2)-(ar.top+ar.height/2);
-    ava.classList.remove('wiggle','in');
+    var dy=(pr.top+pr.height*0.15)-(ar.top+ar.height/2);
+    ava.classList.remove('in','wave','jump','dance','rest');
     ava.classList.add('ready-char');
     ava.style.setProperty('--dx', Math.round(dx*0.78)+'px');
     ava.style.setProperty('--dy', Math.round(dy)+'px');
@@ -348,9 +467,9 @@ html.intro-reduce .intro-patrick,html.intro-reduce .intro-patrick.ready-char,htm
       post.classList.add('sent');
       post.textContent='Posted';
       ava.classList.remove('press');
-      ava.classList.add('rest');
       ava.style.removeProperty('--dx');
       ava.style.removeProperty('--dy');
+      ava.classList.add('dance');
     }, 380);
   }
 
@@ -427,7 +546,9 @@ html.intro-reduce .intro-patrick,html.intro-reduce .intro-patrick.ready-char,htm
       intro.classList.add('ready','done-state');
       if(typeEl) typeEl.textContent=phrase;
       if(caret) caret.classList.add('off');
-      if(ava){ ava.classList.add('ready-char','rest'); ava.style.transform='none'; ava.style.opacity='1'; }
+      if(ava){ ava.className='intro-char-wrap ready-char rest'; ava.style.transform='none'; ava.style.opacity='1'; }
+      if(hiEl) hiEl.textContent='hi!';
+      if(bubble) bubble.classList.add('on');
       if(post){ post.classList.add('sent'); post.textContent='Posted'; }
       if(metrics){
         metrics.classList.add('on');
@@ -443,7 +564,10 @@ html.intro-reduce .intro-patrick,html.intro-reduce .intro-patrick.ready-char,htm
     later(function(){ intro.classList.add('ready'); }, 20);
     later(typePhrase, 160);
     later(popAva, 380);
-    later(pressPost, 1400);
+    later(cycleHi, 500);
+    later(waveArm, 880);
+    later(happyJump, 1480);
+    later(pressPost, 1760);
     later(runCounts, 1860);
     later(end, 2360);
   }
