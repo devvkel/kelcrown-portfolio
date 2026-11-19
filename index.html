@@ -168,19 +168,17 @@ html:not(.js) .intro{display:none!important}
 html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ease}
 .intro-eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:950;color:var(--muted);margin:0 0 12px;text-align:center}
 .intro-stage{position:relative;width:min(440px,calc(100vw - 40px));display:flex;flex-direction:column;align-items:center;overflow:visible}
-.intro-char-wrap{position:relative;width:150px;height:188px;flex:none;margin:0 0 6px;z-index:4;pointer-events:none;opacity:0;transform:translateY(72px) scale(.92);transform-origin:center bottom}
+.intro-char-wrap{position:relative;width:170px;height:204px;flex:none;margin:0 0 6px;z-index:4;pointer-events:none;opacity:0;transform:translateY(16px);transform-origin:center bottom}
 .intro-char-wrap.ready-char{opacity:1;transform:none}
-.intro-char-wrap.in{animation:intro-pop .5s cubic-bezier(.2,1.3,.2,1) both}
-.intro-char-wrap.wave .intro-arm{animation:intro-arm-wave .34s ease-in-out 2}
-.intro-char-wrap.jump{animation:intro-jump .32s cubic-bezier(.2,.8,.2,1)}
-.intro-char-wrap.press{animation:none;transition:transform .22s cubic-bezier(.2,.8,.2,1);transform:translate(var(--dx,0),var(--dy,0)) scale(1.06) rotate(8deg);z-index:5}
-.intro-char-wrap.dance{animation:intro-dance .55s ease-in-out infinite}
-.intro-char-wrap.rest{animation:none;transition:transform .28s cubic-bezier(.2,.8,.2,1);transform:none}
-.intro-char-wrap svg{width:150px;height:188px;display:block;overflow:visible;filter:drop-shadow(0 8px 7px rgba(16,17,20,.18));background:none}
-.intro-arm{transform-box:view-box;transform-origin:50px 100px}
-.intro-bubble{position:absolute;top:10px;left:78%;background:#fff;border:2px solid var(--ink);color:var(--ink);border-radius:14px;padding:6px 9px;font-size:13px;font-weight:950;letter-spacing:-.02em;line-height:1;box-shadow:3px 3px 0 var(--ink);opacity:0;transform:scale(.7);transform-origin:left bottom;white-space:nowrap;z-index:6}
-.intro-bubble.on{opacity:1;transform:none;transition:opacity .16s ease,transform .16s cubic-bezier(.2,1.2,.2,1)}
-.intro-bubble:after{content:"";position:absolute;left:12px;bottom:-5px;width:9px;height:9px;background:#fff;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg);border-radius:0 0 2px 0}
+.intro-char-wrap.in{animation:intro-enter .7s cubic-bezier(.22,.7,.2,1) both}
+.intro-char-wrap.idle{animation:intro-breathe 2.6s ease-in-out infinite}
+.intro-char-wrap.press{animation:none;transition:transform .32s cubic-bezier(.22,.7,.2,1);transform:translate(var(--dx,0),var(--dy,0)) scale(1.03) rotate(5deg);z-index:5}
+.intro-char-wrap.rest{animation:none;transition:transform .32s cubic-bezier(.22,.7,.2,1);transform:none}
+.intro-char-wrap svg{width:170px;height:204px;display:block;overflow:visible;filter:drop-shadow(0 8px 7px rgba(16,17,20,.18));background:none}
+.intro-arm{transform-box:view-box;transform-origin:78% 50%}
+.intro-bubble{position:absolute;top:32px;left:auto;right:78%;background:#fff;border:2px solid var(--ink);color:var(--ink);border-radius:14px;padding:6px 9px;font-size:13px;font-weight:950;letter-spacing:-.02em;line-height:1;box-shadow:3px 3px 0 var(--ink);opacity:0;transform:translateY(4px);transform-origin:right bottom;white-space:nowrap;z-index:6}
+.intro-bubble.on{opacity:1;transform:none;transition:opacity .22s ease,transform .22s ease}
+.intro-bubble:after{content:"";position:absolute;left:auto;right:10px;bottom:-5px;width:9px;height:9px;background:#fff;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg);border-radius:0 0 2px 0}
 .intro-card{width:100%;background:#fff;border:2px solid var(--ink);border-radius:24px;padding:18px 18px 16px;box-shadow:10px 10px 0 var(--ink);transform:translateY(10px) scale(.98);opacity:0;transition:transform .28s cubic-bezier(.2,.7,.2,1),opacity .28s ease;position:relative;z-index:1}
 .intro.ready .intro-card,.intro.done-state .intro-card{transform:none;opacity:1}
 .intro-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;min-height:36px}
@@ -204,31 +202,29 @@ html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ea
 .intro-hint{margin:16px 0 0;font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.04em}
 .intro-hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .intro-heart{position:absolute;font-size:14px;line-height:1;animation:intro-heart .7s ease-out forwards;color:#ff4d57}
-@keyframes intro-pop{0%{transform:translateY(80px) scale(.88);opacity:0}55%{transform:translateY(-14px) scale(1.06);opacity:1}75%{transform:translateY(5px) scale(.98);opacity:1}100%{transform:translateY(0) scale(1);opacity:1}}
-@keyframes intro-arm-wave{0%,100%{transform:rotate(8deg)}50%{transform:rotate(-38deg)}}
-@keyframes intro-jump{0%,100%{transform:translateY(0) scale(1)}40%{transform:translateY(-20px) scale(1.05)}70%{transform:translateY(4px) scale(.98)}}
-@keyframes intro-dance{0%,100%{transform:rotate(0) translateY(0)}25%{transform:rotate(-8deg) translateY(-5px)}50%{transform:rotate(0) translateY(0)}75%{transform:rotate(8deg) translateY(-5px)}}
+@keyframes intro-enter{0%{transform:translateY(16px);opacity:0}100%{transform:translateY(0);opacity:1}}
+@keyframes intro-breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 @keyframes intro-blink{50%{opacity:0}}
 @keyframes intro-heart{0%{transform:translate(-50%,0) scale(.6);opacity:1}100%{transform:translate(calc(-50% + var(--hx,0px)),-56px) scale(1.1);opacity:0}}
 @media(max-width:650px){
   .intro-text{font-size:18px;min-height:3.3em}
-  .intro-char-wrap{width:120px;height:150px;margin-bottom:4px}
-  .intro-char-wrap svg{width:120px;height:150px}
-  .intro-bubble{font-size:12px;padding:5px 8px;top:6px}
+  .intro-char-wrap{width:140px;height:168px;margin-bottom:4px}
+  .intro-char-wrap svg{width:140px;height:168px}
+  .intro-bubble{font-size:12px;padding:5px 8px;top:24px}
   .intro-card{padding:16px 14px 14px;border-radius:22px;box-shadow:7px 7px 0 var(--ink)}
   .intro-who{font-size:13px}
   .intro-mini{width:32px;height:32px}
 }
 @media(prefers-reduced-motion:reduce){
   .intro-card,.intro-metrics,.intro.out,html.intro-reduce .intro.out{transition:opacity .32s ease}
-  .intro-char-wrap,.intro-char-wrap.ready-char,.intro-char-wrap.in,.intro-char-wrap.wave,.intro-char-wrap.jump,.intro-char-wrap.press,.intro-char-wrap.dance,.intro-char-wrap.rest{animation:none;transition:none;transform:none;opacity:1}
-  .intro-char-wrap.wave .intro-arm,.intro-arm{animation:none;transform:none}
+  .intro-char-wrap,.intro-char-wrap.ready-char,.intro-char-wrap.in,.intro-char-wrap.idle,.intro-char-wrap.press,.intro-char-wrap.rest{animation:none;transition:none;transform:none;opacity:1}
+  .intro-arm{animation:none;transform:none}
   .intro-bubble,.intro-bubble.on{transition:none;transform:none}
   .intro-caret{animation:none}
   .intro-heart{animation:none;display:none}
 }
-html.intro-reduce .intro-char-wrap,html.intro-reduce .intro-char-wrap.ready-char,html.intro-reduce .intro-char-wrap.in,html.intro-reduce .intro-char-wrap.wave,html.intro-reduce .intro-char-wrap.jump,html.intro-reduce .intro-char-wrap.press,html.intro-reduce .intro-char-wrap.dance,html.intro-reduce .intro-char-wrap.rest{animation:none;transition:none;transform:none;opacity:1}
-html.intro-reduce .intro-char-wrap.wave .intro-arm,html.intro-reduce .intro-arm{animation:none;transform:none}
+html.intro-reduce .intro-char-wrap,html.intro-reduce .intro-char-wrap.ready-char,html.intro-reduce .intro-char-wrap.in,html.intro-reduce .intro-char-wrap.idle,html.intro-reduce .intro-char-wrap.press,html.intro-reduce .intro-char-wrap.rest{animation:none;transition:none;transform:none;opacity:1}
+html.intro-reduce .intro-arm{animation:none;transform:none}
 
 
 </style>
@@ -240,86 +236,117 @@ html.intro-reduce .intro-char-wrap.wave .intro-arm,html.intro-reduce .intro-arm{
 <div class="intro-stage">
 <div class="intro-char-wrap" id="intro-char" aria-hidden="true">
 <div class="intro-bubble" id="intro-bubble"><span id="intro-hi">hi!</span></div>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 200" width="150" height="188" fill="none" aria-hidden="true">
-  <ellipse cx="80" cy="192" rx="40" ry="6.5" fill="#101114" opacity=".15"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="170" height="204" fill="none" aria-hidden="true">
 
-  <g class="intro-arm">
-    <path fill="#ffa0b4" stroke="#101114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
-      d="M50,90
-         C36,76 16,70 6,78
-         C-6,88 -2,108 14,116
-         C28,122 44,118 54,106
-         C58,100 56,94 50,90 Z"/>
+  <defs>
+    <clipPath id="intro-eyeL"><path d="M64,108 C64,123 96,123 96,107 C96,99 80,95 64,103 Z"/></clipPath>
+    <clipPath id="intro-eyeR"><path d="M104,106 C104,122 136,122 136,105 C136,97 120,92 104,101 Z"/></clipPath>
+  </defs>
+
+  <ellipse cx="108" cy="226" rx="54" ry="7.2" fill="#101114" opacity=".15"/>
+  
+  <path fill="#fffdf8" stroke="#101114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+    d="M80,168 C74,168 71,174 71,182 L69,200 C69,206 75,210 82,210 L88,210 C95,210 99,206 99,200 L97,182 C97,174 92,168 86,168 Z"/>
+  <path fill="#fffdf8" stroke="#101114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+    d="M124,168 C118,168 115,174 116,182 L118,200 C118,206 124,210 131,210 L137,210 C144,210 148,206 148,200 L146,182 C146,174 142,168 136,168 Z"/>
+  <path fill="#101114" stroke="#101114" stroke-width="2.4" stroke-linejoin="round"
+    d="M63,204 C63,197 71,194 83,194 C97,194 105,198 105,206 C105,214 95,219 83,219 C69,219 63,214 63,206 Z"/>
+  <path d="M71,208 H97" stroke="#dfff72" stroke-width="2.4" stroke-linecap="round"/>
+  <ellipse cx="69" cy="207" rx="3.2" ry="2.4" fill="#dfff72"/>
+  <path fill="#101114" stroke="#101114" stroke-width="2.4" stroke-linejoin="round"
+    d="M113,204 C113,197 121,194 133,194 C147,194 155,198 155,206 C155,214 145,219 133,219 C119,219 113,214 113,206 Z"/>
+  <path d="M121,208 H147" stroke="#dfff72" stroke-width="2.4" stroke-linecap="round"/>
+  <ellipse cx="119" cy="207" rx="3.2" ry="2.4" fill="#dfff72"/>
+
+  
+  <path fill="#fffdf8" stroke="#101114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+    d="M76,42
+       H128
+       C152,42 168,60 168,86
+       V128
+       C168,154 152,168 128,168
+       H108
+       L56,188
+       C52,192 46,188 52,184
+       L80,166
+       H76
+       C52,166 36,150 36,126
+       V86
+       C36,60 52,42 76,42 Z"/>
+
+  
+  <path fill="#fffdf8" stroke="#101114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+    d="M56,126
+       C42,132 32,144 30,156
+       C29,164 38,170 48,166
+       C55,162 60,150 62,140
+       C63,132 64,126 56,126 Z"/>
+  <ellipse cx="34" cy="162" rx="11" ry="10.5" fill="#fffdf8" stroke="#101114" stroke-width="3"/>
+
+    <path d="M66,92 Q80,86 94,93" stroke="#101114" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M106,90 Q121,82 135,91" stroke="#101114" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M64,108 C64,123 96,123 96,107 C96,99 80,95 64,103 Z" fill="#fff" stroke="#101114" stroke-width="2.8" stroke-linejoin="round"/>
+  <path d="M104,106 C104,122 136,122 136,105 C136,97 120,92 104,101 Z" fill="#fff" stroke="#101114" stroke-width="2.8" stroke-linejoin="round"/>
+  <g clip-path="url(#intro-eyeL)">
+    <circle cx="83" cy="115" r="7.2" fill="#101114"/>
+    <circle cx="85.6" cy="112.2" r="2.15" fill="#fff"/>
+  </g>
+  <g clip-path="url(#intro-eyeR)">
+    <circle cx="123" cy="113" r="7.2" fill="#101114"/>
+    <circle cx="125.6" cy="110.2" r="2.15" fill="#fff"/>
+  </g>
+  <path d="M64,103 C80,95 96,99 96,107" stroke="#101114" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M104,101 C120,92 136,97 136,105" stroke="#101114" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <ellipse cx="60" cy="126" rx="9" ry="5.6" fill="#f7c9d8"/>
+  <ellipse cx="140" cy="124" rx="9" ry="5.6" fill="#f7c9d8"/>
+  <path d="M86,132 C95,145 117,145 126,130" stroke="#101114" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M97,136 C105,144 115,143 121,135" fill="#ff7a93"/>
+  <circle cx="129" cy="132" r="1.15" fill="#101114"/>
+
+  
+
+    <g transform="translate(104,46) rotate(-16)">
+    <path fill="#dfff72" stroke="#101114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+      d="M-36,4
+         C-44,-16 -22,-46 10,-50
+         C40,-54 62,-30 52,4
+         C30,0 4,6 -12,6
+         C-24,6 -32,6 -36,4 Z"/>
+    <path fill="#c8ec4a" stroke="#101114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+      d="M-54,8
+         C-54,24 -26,34 4,34
+         C34,34 60,24 60,8
+         C60,0 34,-8 4,-8
+         C-26,-8 -54,0 -54,8 Z"/>
+    <path d="M-44,10 C-24,18 4,20 32,16 C46,14 54,10 56,8" stroke="#101114" stroke-width="1.6" stroke-linecap="round" fill="none" opacity=".45"/>
+    <circle cx="12" cy="-52" r="11" fill="#f7c9d8" stroke="#101114" stroke-width="3"/>
+    <circle cx="8.8" cy="-55" r="2.7" fill="#fff" opacity=".85"/>
+    <circle cx="16.5" cy="-50" r="2.1" fill="#e8a0b4" opacity=".75"/>
   </g>
 
-  <path fill="#ffa0b4" stroke="#101114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
-    d="M110,94
-       C124,84 142,84 152,94
-       C164,106 158,124 142,126
-       C128,128 114,118 106,108
-       C102,102 104,96 110,94 Z"/>
+  
 
-  <path fill="#ffa0b4" stroke="#101114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
-    d="M80,16
-       C60,16 44,36 42,62
-       C40,80 44,92 50,100
-       C46,112 48,124 54,134
-       C38,142 22,158 24,178
-       C26,191 44,197 56,186
-       C64,178 68,164 70,152
-       C74,156 80,158 80,158
-       C80,158 86,156 90,152
-       C92,164 96,178 104,186
-       C116,197 134,191 136,178
-       C138,158 122,142 106,134
-       C112,124 114,112 110,100
-       C116,92 120,80 118,62
-       C116,36 100,16 80,16 Z"/>
-
-  <path fill="#b6e86a" stroke="#101114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
-    d="M52,122
-       C58,114 68,110 80,110
-       C92,110 102,114 108,122
-       L112,150
-       C112,159 102,166 91,166
-       C86,166 83,161 80,161
-       C77,161 74,166 69,166
-       C58,166 48,159 48,150
-       Z"/>
-  <path d="M53,124 C64,119 96,119 107,124" stroke="#101114" stroke-width="1.7" stroke-linecap="round" fill="none" opacity=".5"/>
-
-  <g fill="#8b4cc4" stroke="none">
-    <g transform="translate(67,137)">
-      <circle cx="0" cy="-3.3" r="2.2"/>
-      <circle cx="3.1" cy="1.3" r="2.2"/>
-      <circle cx="-3.1" cy="1.3" r="2.2"/>
-      <circle cx="0" cy="0" r="1.55" fill="#f4eaff"/>
-    </g>
-    <g transform="translate(94,135)">
-      <circle cx="0" cy="-3.3" r="2.2"/>
-      <circle cx="3.1" cy="1.3" r="2.2"/>
-      <circle cx="-3.1" cy="1.3" r="2.2"/>
-      <circle cx="0" cy="0" r="1.55" fill="#f4eaff"/>
-    </g>
-    <g transform="translate(80,149)">
-      <circle cx="0" cy="-2.6" r="1.8"/>
-      <circle cx="2.5" cy="1" r="1.8"/>
-      <circle cx="-2.5" cy="1" r="1.8"/>
-      <circle cx="0" cy="0" r="1.25" fill="#f4eaff"/>
+    <g class="intro-arm">
+    <path fill="#fffdf8" stroke="#101114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+      d="M156,120
+         C172,110 186,96 190,82
+         C192,74 186,68 178,70
+         C170,72 164,84 160,96
+         C157,106 150,118 156,120 Z"/>
+    <g transform="translate(184,72) rotate(-16)">
+      <path fill="#fffdf8" stroke="#101114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+        d="M7,7 C14,7 17,14 15,20 C13,25 4,25 2,19 C1,14 2,9 7,7 Z"/>
+      <ellipse cx="0" cy="7" rx="11.5" ry="12.2" fill="#fffdf8" stroke="#101114" stroke-width="3"/>
+      <path fill="#fffdf8" stroke="#101114" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+        d="M-10,5 C-20,0 -25,11 -16,17 C-10,21 -5,14 -5,8 C-5,5 -7,4 -10,5 Z"/>
+      <rect x="-10.5" y="-24" width="9" height="28" rx="4.5" fill="#fffdf8" stroke="#101114" stroke-width="3"/>
+      <rect x="1.2" y="-27" width="9" height="31" rx="4.5" fill="#fffdf8" stroke="#101114" stroke-width="3"/>
     </g>
   </g>
 
-  <path d="M54,47 Q64,36 74,43" stroke="#101114" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-  <path d="M88,42 Q99,32 108,44" stroke="#101114" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-  <ellipse cx="67" cy="58" rx="11.2" ry="12.4" fill="#fff" stroke="#101114" stroke-width="2.6"/>
-  <ellipse cx="95" cy="59" rx="11.2" ry="12.4" fill="#fff" stroke="#101114" stroke-width="2.6"/>
-  <circle cx="69" cy="60" r="4.7" fill="#101114"/>
-  <circle cx="97" cy="61" r="4.7" fill="#101114"/>
-  <circle cx="70.8" cy="58.3" r="1.5" fill="#fff"/>
-  <circle cx="98.8" cy="59.3" r="1.5" fill="#fff"/>
-  <ellipse cx="81" cy="82" rx="16.5" ry="13" fill="#2a1018" stroke="#101114" stroke-width="2.6"/>
-  <path d="M69,86 Q81,97 93,86 Q81,92 69,86 Z" fill="#ff6b8a"/>
+
 </svg>
+
 </div>
 <div class="intro-card" id="intro-card">
 <div class="intro-head">
@@ -356,7 +383,7 @@ html.intro-reduce .intro-char-wrap.wave .intro-arm,html.intro-reduce .intro-arm{
   var metrics=document.getElementById('intro-metrics');
   var bar=document.getElementById('intro-bar');
   var phrase='you build it. i make people care.';
-  var timers=[], raf=0, done=false, t0=0, DURATION=2360;
+  var timers=[], raf=0, done=false, t0=0, DURATION=5000;
 
   function later(fn,ms){var id=setTimeout(fn,ms);timers.push(id);return id;}
   function clearAll(){timers.forEach(clearTimeout);timers=[];if(raf) cancelAnimationFrame(raf);raf=0;}
@@ -403,7 +430,7 @@ html.intro-reduce .intro-char-wrap.wave .intro-arm,html.intro-reduce .intro-arm{
 
   function tickBar(now){
     if(done) return;
-    var p=Math.min(1,(now-t0)/2360);
+    var p=Math.min(1,(now-t0)/DURATION);
     if(bar) bar.style.width=(p*100).toFixed(2)+'%';
     if(p<1) raf=requestAnimationFrame(tickBar);
   }
@@ -414,7 +441,7 @@ html.intro-reduce .intro-char-wrap.wave .intro-arm,html.intro-reduce .intro-arm{
       if(done) return;
       i++;
       if(typeEl) typeEl.textContent=phrase.slice(0,i);
-      if(i<phrase.length) later(step, 26);
+      if(i<phrase.length) later(step, 85);
     }
     step();
   }
@@ -430,7 +457,7 @@ html.intro-reduce .intro-char-wrap.wave .intro-arm,html.intro-reduce .intro-arm{
       hiEl.textContent=words[i];
       showBubble();
       i++;
-      if(i<words.length) later(step, 370);
+      if(i<words.length) later(step, 600);
     }
     step();
   }
@@ -438,24 +465,13 @@ html.intro-reduce .intro-char-wrap.wave .intro-arm,html.intro-reduce .intro-arm{
     if(!ava||done) return;
     ava.classList.add('ready-char','in');
   }
-  function waveArm(){
-    if(!ava||done) return;
-    ava.classList.remove('in');
-    ava.classList.add('ready-char','wave');
-  }
-  function happyJump(){
-    if(!ava||done) return;
-    ava.classList.remove('in','wave');
-    ava.classList.add('ready-char','jump');
-  }
-
   function pressPost(){
     if(done||!ava||!post) return;
     var ar=ava.getBoundingClientRect();
     var pr=post.getBoundingClientRect();
     var dx=(pr.left+pr.width/2)-(ar.left+ar.width/2);
     var dy=(pr.top+pr.height*0.15)-(ar.top+ar.height/2);
-    ava.classList.remove('in','wave','jump','dance','rest');
+    ava.classList.remove('in','idle','rest');
     ava.classList.add('ready-char');
     ava.style.setProperty('--dx', Math.round(dx*0.78)+'px');
     ava.style.setProperty('--dy', Math.round(dy)+'px');
@@ -469,8 +485,8 @@ html.intro-reduce .intro-char-wrap.wave .intro-arm,html.intro-reduce .intro-arm{
       ava.classList.remove('press');
       ava.style.removeProperty('--dx');
       ava.style.removeProperty('--dy');
-      ava.classList.add('dance');
-    }, 380);
+      ava.classList.add('idle');
+    }, 420);
   }
 
   function floatHearts(){
@@ -562,14 +578,17 @@ html.intro-reduce .intro-char-wrap.wave .intro-arm,html.intro-reduce .intro-arm{
       return;
     }
     later(function(){ intro.classList.add('ready'); }, 20);
-    later(typePhrase, 160);
-    later(popAva, 380);
-    later(cycleHi, 500);
-    later(waveArm, 880);
-    later(happyJump, 1480);
-    later(pressPost, 1760);
-    later(runCounts, 1860);
-    later(end, 2360);
+    later(typePhrase, 280);
+    later(popAva, 450);
+    later(function(){
+      if(!ava||done) return;
+      ava.classList.remove('in');
+      ava.classList.add('ready-char','idle');
+    }, 1200);
+    later(cycleHi, 1100);
+    later(pressPost, 3900);
+    later(runCounts, 4350);
+    later(end, 5000);
   }
 
   intro.addEventListener('pointerdown', skip, {passive:false});
@@ -579,7 +598,7 @@ html.intro-reduce .intro-char-wrap.wave .intro-arm,html.intro-reduce .intro-arm{
   requestAnimationFrame(function(){
     requestAnimationFrame(function(){
       if(done) return;
-      later(function(){ if(!done) end(); }, 3200);
+      later(function(){ if(!done) end(); }, 6500);
       play();
     });
   });
