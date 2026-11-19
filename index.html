@@ -159,10 +159,290 @@ nav{justify-content:space-between;gap:20px}
 @media(max-width:650px){.hook-box{padding:22px 18px;box-shadow:6px 6px 0 var(--ink)}.hook-actions .btn{flex:1;text-align:center}.handle-sticker{margin-top:20px}}
 @media(prefers-reduced-motion:reduce){.hook-line.swap{transform:none}.spark,.spark-layer{display:none!important}.fun-toast,.fun-toast.open,.handle-sticker,.handle-sticker:hover{transition:none;transform:none}}
 
+
+html.intro-pending,html.intro-reduce{overflow:hidden!important}
+html.intro-pending body,html.intro-reduce body{overflow:hidden!important;touch-action:none}
+html:not(.js) .intro{display:none!important}
+.intro{position:fixed;inset:0;z-index:200000;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:24px 20px calc(24px + env(safe-area-inset-bottom,0px));user-select:none;-webkit-user-select:none;touch-action:none}
+.intro.out{transform:translateY(-110%);transition:transform .42s cubic-bezier(.7,.1,.2,1)}
+html.intro-reduce .intro.out{transform:none;opacity:0;transition:opacity .32s ease}
+.intro-eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:950;color:var(--muted);margin:0 0 16px;text-align:center}
+.intro-card{width:min(440px,calc(100vw - 40px));background:#fff;border:2px solid var(--ink);border-radius:24px;padding:18px 18px 16px;box-shadow:10px 10px 0 var(--ink);transform:translateY(10px) scale(.98);opacity:0;transition:transform .28s cubic-bezier(.2,.7,.2,1),opacity .28s ease}
+.intro.ready .intro-card,.intro.done-state .intro-card{transform:none;opacity:1}
+.intro-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;min-height:48px}
+.intro-ava{width:48px;height:48px;border-radius:50%;border:2px solid var(--ink);flex:none;background-color:#eee;box-shadow:3px 3px 0 var(--ink);transform:scale(0);opacity:0;transform-origin:center}
+.intro-ava.in{animation:intro-pop .45s cubic-bezier(.2,1.4,.3,1) forwards}
+.intro-ava.wiggle{animation:intro-wiggle .32s ease-in-out 2}
+.intro-ava.press{transition:transform .2s cubic-bezier(.2,.8,.2,1);transform:translate(var(--dx,0),var(--dy,0)) scale(1.06);z-index:2}
+.intro-who{font-size:14px;font-weight:900;line-height:1.2}
+.intro-who small{display:block;font-size:12px;font-weight:750;color:var(--muted)}
+.intro-text{min-height:3.1em;margin:0 0 16px;font-size:22px;line-height:1.35;letter-spacing:-.035em;font-weight:800;color:var(--ink)}
+.intro-caret{display:inline-block;width:2px;height:.9em;background:var(--ink);margin-left:1px;vertical-align:-.1em;animation:intro-blink 1s steps(1) infinite}
+.intro-caret.off{display:none}
+.intro-row{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;min-height:44px}
+.intro-metrics{display:flex;flex-wrap:wrap;gap:10px 14px;font-size:13px;font-weight:850;color:var(--ink);opacity:0;transform:translateY(6px);transition:opacity .2s ease,transform .2s ease}
+.intro-metrics.on{opacity:1;transform:none}
+.intro-metrics span{display:inline-flex;align-items:center;gap:5px;font-variant-numeric:tabular-nums}
+.intro-metrics b{font-weight:950;letter-spacing:-.03em}
+.intro-metrics svg{display:block;flex:none}
+.intro-post{appearance:none;-webkit-appearance:none;border:2px solid var(--ink);background:var(--lime);color:var(--ink);font-family:inherit;font-weight:950;font-size:14px;letter-spacing:-.02em;padding:9px 16px;border-radius:12px;box-shadow:4px 4px 0 var(--ink);cursor:default;margin-left:auto}
+.intro-post.down{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.intro-post.sent{background:var(--ink);color:#fff;box-shadow:4px 4px 0 var(--pink)}
+.intro-bar{width:min(440px,calc(100vw - 40px));height:5px;margin-top:16px;background:#fff;border:1.5px solid var(--ink);border-radius:99px;overflow:hidden;box-shadow:3px 3px 0 var(--ink)}
+.intro-bar>i{display:block;height:100%;width:0;background:var(--lime);border-radius:99px}
+.intro-hint{margin:16px 0 0;font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.04em}
+.intro-hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.intro-heart{position:absolute;font-size:14px;line-height:1;animation:intro-heart .7s ease-out forwards;color:#ff4d57}
+@keyframes intro-pop{0%{transform:scale(0) rotate(-16deg);opacity:0}60%{transform:scale(1.16) rotate(8deg);opacity:1}100%{transform:scale(1) rotate(0);opacity:1}}
+@keyframes intro-wiggle{0%,100%{transform:rotate(0)}30%{transform:rotate(-10deg)}70%{transform:rotate(9deg)}}
+@keyframes intro-blink{50%{opacity:0}}
+@keyframes intro-heart{0%{transform:translate(-50%,0) scale(.6);opacity:1}100%{transform:translate(calc(-50% + var(--hx,0px)),-56px) scale(1.1);opacity:0}}
+@media(max-width:650px){.intro-text{font-size:18px;min-height:3.3em}.intro-ava{width:42px;height:42px}.intro-card{padding:16px 14px 14px;border-radius:22px;box-shadow:7px 7px 0 var(--ink)}.intro-who{font-size:13px}}
+@media(prefers-reduced-motion:reduce){
+  .intro-card,.intro-metrics,.intro.out,html.intro-reduce .intro.out{transition:opacity .32s ease}
+  .intro-ava,.intro-ava.in,.intro-ava.wiggle,.intro-ava.press{animation:none;transition:none;transform:none;opacity:1}
+  .intro-caret{animation:none}
+  .intro-heart{animation:none;display:none}
+}
+
 </style>
+<script>document.documentElement.classList.add('js');document.documentElement.classList.add((window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)?'intro-reduce':'intro-pending');</script>
 </head>
 <body>
+<div class="intro" id="intro" role="dialog" aria-label="drafting your first impression" aria-modal="true">
+<div class="intro-eyebrow">drafting your first impression</div>
+<div class="intro-card" id="intro-card">
+<div class="intro-head">
+<span class="intro-ava post-pfp" id="intro-ava" aria-hidden="true"></span>
+<span class="intro-who">kel🧛ツ<small>@kelcrown</small></span>
+</div>
+<p class="intro-text"><span id="intro-type"></span><span class="intro-caret" id="intro-caret"></span></p>
+<div class="intro-row">
+<div class="intro-metrics" id="intro-metrics" aria-hidden="true">
+<span data-k="like" title="likes"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13.6s-5.3-3.2-6.4-6.2C.8 5.4 2 3.4 4.2 3.4c1.3 0 2.2.7 2.8 1.7.6-1 1.5-1.7 2.8-1.7 2.2 0 3.4 2 2.6 4-1.1 3-6.4 6.2-6.4 6.2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><b>0</b></span>
+<span data-k="reply" title="replies"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8c0-2.8 2.5-5 5.5-5S14 5.2 14 8s-2.5 5-5.5 5c-.6 0-1.2-.1-1.7-.2L3 13.5 3.8 10C3.3 9.4 3 8.7 3 8z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><b>0</b></span>
+<span data-k="repost" title="reposts"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 4h6.5a2 2 0 0 1 2 2v2M11 12H4.5a2 2 0 0 1-2-2V8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M3.5 2.5 5.5 4.5 3.5 6.5M12.5 9.5 10.5 11.5 12.5 13.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><b>0</b></span>
+<span data-k="bookmark" title="bookmarks"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3.2h8v10.3L8 11.2 4 13.5V3.2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><b>0</b></span>
+</div>
+<button type="button" class="intro-post" id="intro-post" tabindex="-1" aria-hidden="true">Post</button>
+</div>
+</div>
+<div class="intro-bar" aria-hidden="true"><i id="intro-bar"></i></div>
+<p class="intro-hint">tap, click or press a key to skip</p>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  var intro=document.getElementById('intro');
+  if(!intro){finish(true);return;}
+  var reduce=root.classList.contains('intro-reduce')||(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var typeEl=document.getElementById('intro-type');
+  var caret=document.getElementById('intro-caret');
+  var ava=document.getElementById('intro-ava');
+  var post=document.getElementById('intro-post');
+  var metrics=document.getElementById('intro-metrics');
+  var bar=document.getElementById('intro-bar');
+  var phrase='you build it. i make people care.';
+  var timers=[], raf=0, done=false, t0=0, DURATION=2400;
+
+  function later(fn,ms){var id=setTimeout(fn,ms);timers.push(id);return id;}
+  function clearAll(){timers.forEach(clearTimeout);timers=[];if(raf) cancelAnimationFrame(raf);raf=0;}
+
+  function setInert(v){
+    var w=document.querySelector('.wrap');
+    var b=document.getElementById('bell-wrap');
+    var f=document.getElementById('fun-toast');
+    try{ if(w) w.inert=v; if(b) b.inert=v; if(f) f.inert=v; }catch(e){}
+  }
+
+  function finish(immediate){
+    if(done) return;
+    done=true;
+    clearAll();
+    root.classList.remove('intro-pending','intro-reduce');
+    root.classList.add('intro-done');
+    setInert(false);
+    try{ document.dispatchEvent(new Event('intro:done')); }catch(e){}
+    if(immediate||!intro){ if(intro&&intro.parentNode) intro.remove(); return; }
+    later(function(){ if(intro&&intro.parentNode) intro.remove(); }, 500);
+  }
+
+  function end(){
+    if(done) return;
+    clearAll();
+    if(caret) caret.classList.add('off');
+    intro.classList.add('out');
+    later(function(){ finish(false); }, reduce?340:440);
+  }
+
+  function skip(e){
+    if(done) return;
+    if(e){
+      if(e.type==='keydown'&&(e.ctrlKey||e.metaKey||e.altKey)&&e.key!=='Escape') return;
+      if(e.cancelable) e.preventDefault();
+    }
+    if(bar) bar.style.width='100%';
+    if(typeEl&&typeEl.textContent!==phrase) typeEl.textContent=phrase;
+    if(ava){ ava.classList.add('in'); ava.style.opacity='1'; ava.style.transform='none'; }
+    end();
+  }
+
+  function tickBar(now){
+    if(done) return;
+    var p=Math.min(1,(now-t0)/2100);
+    if(bar) bar.style.width=(p*100).toFixed(2)+'%';
+    if(p<1) raf=requestAnimationFrame(tickBar);
+  }
+
+  function typePhrase(){
+    var i=0;
+    function step(){
+      if(done) return;
+      i++;
+      if(typeEl) typeEl.textContent=phrase.slice(0,i);
+      if(i<phrase.length) later(step, 26);
+    }
+    step();
+  }
+
+  function popAva(){
+    if(!ava||done) return;
+    ava.classList.add('in');
+    later(function(){ if(!done) ava.classList.add('wiggle'); }, 420);
+  }
+
+  function pressPost(){
+    if(done||!ava||!post) return;
+    var ar=ava.getBoundingClientRect();
+    var pr=post.getBoundingClientRect();
+    var dx=(pr.left+pr.width/2)-(ar.left+ar.width/2);
+    var dy=(pr.top+pr.height/2)-(ar.top+ar.height/2);
+    ava.classList.remove('wiggle','in');
+    ava.style.opacity='1';
+    ava.style.setProperty('--dx', Math.round(dx*0.82)+'px');
+    ava.style.setProperty('--dy', Math.round(dy*0.82)+'px');
+    ava.classList.add('press');
+    later(function(){ if(!done) post.classList.add('down'); }, 140);
+    later(function(){
+      if(done) return;
+      post.classList.remove('down');
+      post.classList.add('sent');
+      post.textContent='Posted';
+      ava.classList.remove('press');
+      ava.style.removeProperty('--dx');
+      ava.style.removeProperty('--dy');
+    }, 320);
+  }
+
+  function floatHearts(){
+    if(reduce||!metrics) return;
+    var like=metrics.querySelector('[data-k="like"]');
+    if(!like) return;
+    var r=like.getBoundingClientRect(), ir=intro.getBoundingClientRect();
+    for(var i=0;i<5;i++){
+      (function(n){
+        later(function(){
+          if(done) return;
+          var h=document.createElement('span');
+          h.className='intro-heart';
+          h.textContent='♥';
+          h.style.left=(r.left-ir.left+10+(Math.random()*16-8))+'px';
+          h.style.top=(r.top-ir.top)+'px';
+          h.style.setProperty('--hx', (Math.random()*24-12)+'px');
+          intro.appendChild(h);
+          later(function(){ h.remove(); }, 750);
+        }, n*70);
+      })(i);
+    }
+    // a few lime sparkles near metrics
+    var colors=['#dfff72','#f7c9d8','#101114'];
+    var mr=metrics.getBoundingClientRect();
+    for(var j=0;j<10;j++){
+      (function(n){
+        later(function(){
+          if(done) return;
+          var s=document.createElement('span');
+          s.className='spark'+(n%2?' spark-dot':'');
+          s.style.left=(mr.left+Math.random()*mr.width)+'px';
+          s.style.top=(mr.top+Math.random()*mr.height)+'px';
+          s.style.background=colors[n%colors.length];
+          var ang=Math.random()*Math.PI*2, dist=20+Math.random()*40;
+          s.style.setProperty('--dx', Math.cos(ang)*dist+'px');
+          s.style.setProperty('--dy', (Math.sin(ang)*dist-24)+'px');
+          s.style.setProperty('--rot', (Math.random()*120-60)+'deg');
+          s.style.position='fixed';
+          s.style.zIndex='200001';
+          document.body.appendChild(s);
+          later(function(){ s.remove(); }, 700);
+        }, 40*n);
+      })(j);
+    }
+  }
+
+  function runCounts(){
+    if(done||!metrics) return;
+    metrics.classList.add('on');
+    metrics.setAttribute('aria-hidden','false');
+    if(caret) caret.classList.add('off');
+    var targets={like:24,reply:9,repost:6,bookmark:4};
+    var startAt=performance.now(), dur=reduce?0:420;
+    function frame(now){
+      if(done) return;
+      var p=dur?Math.min(1,(now-startAt)/dur):1;
+      var e=1-Math.pow(1-p,3);
+      Object.keys(targets).forEach(function(k){
+        var el=metrics.querySelector('[data-k="'+k+'"] b');
+        if(el) el.textContent=String(Math.round(targets[k]*e));
+      });
+      if(p<1) raf=requestAnimationFrame(frame);
+    }
+    raf=requestAnimationFrame(frame);
+    if(!reduce) floatHearts();
+  }
+
+  function play(){
+    t0=performance.now();
+    raf=requestAnimationFrame(tickBar);
+    if(reduce){
+      intro.classList.add('ready','done-state');
+      if(typeEl) typeEl.textContent=phrase;
+      if(caret) caret.classList.add('off');
+      if(ava){ ava.classList.add('in'); ava.style.transform='none'; ava.style.opacity='1'; }
+      if(post){ post.classList.add('sent'); post.textContent='Posted'; }
+      if(metrics){
+        metrics.classList.add('on');
+        metrics.querySelectorAll('[data-k]').forEach(function(s){
+          var map={like:24,reply:9,repost:6,bookmark:4};
+          var b=s.querySelector('b'); if(b) b.textContent=String(map[s.getAttribute('data-k')]||0);
+        });
+      }
+      if(bar) bar.style.width='100%';
+      later(end, 380);
+      return;
+    }
+    later(function(){ intro.classList.add('ready'); }, 20);
+    later(typePhrase, 180);
+    later(popAva, 720);
+    later(pressPost, 1280);
+    later(runCounts, 1680);
+    later(end, 2180);
+  }
+
+  intro.addEventListener('pointerdown', skip, {passive:false});
+  window.addEventListener('keydown', skip, true);
+  document.addEventListener('DOMContentLoaded', function(){ if(!done) setInert(true); });
+  intro.classList.add('ready');
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      if(done) return;
+      later(function(){ if(!done) end(); }, 3000);
+      play();
+    });
+  });
+})();
+</script>
 <div class="wrap">
+
 <nav><div class="nav"><a href="#proof-of-work">proof of work</a><a href="#services">services</a><a href="#posts">posts</a><a href="#contact">contact</a></div><div class="deco" aria-hidden="true"><span class="deco-btn status"><span class="pulse"></span><span class="deco-label">currently:</span> <span class="deco-state">writing hooks</span></span><span class="deco-btn clock"><span class="deco-label">kel’s time</span> <span class="deco-time">--:--</span> <span class="deco-label">WAT</span></span></div></nav>
 
 <header class="hero" id="top"><div class="hero-glow" aria-hidden="true"></div>
@@ -418,11 +698,20 @@ if it sounds too formal, i rewrite it.
     if(reduce){el.textContent=fmt(to,dec,suf);return;}
     var t0=null,dur=1600;function step(t){if(!t0)t0=t;var p=Math.min((t-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=fmt(to*e,dec,suf);if(p<1)requestAnimationFrame(step);}
     requestAnimationFrame(step);}
-  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});[].forEach.call(document.querySelectorAll('[data-count]'),count);return;}
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
-  els.forEach(function(e){io.observe(e)});
-  var co=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){count(e.target);co.unobserve(e.target);}})},{threshold:.5});
-  [].forEach.call(document.querySelectorAll('[data-count]'),function(e){co.observe(e)});
+  function startRevealAndCounts(){
+    if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});[].forEach.call(document.querySelectorAll('[data-count]'),count);return;}
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+    els.forEach(function(e){io.observe(e)});
+    var co=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){count(e.target);co.unobserve(e.target);}})},{threshold:.5});
+    [].forEach.call(document.querySelectorAll('[data-count]'),function(e){co.observe(e)});
+  }
+  var waiting=d.classList.contains('intro-pending')||d.classList.contains('intro-reduce');
+  if(waiting&&!d.classList.contains('intro-done')&&document.getElementById('intro')){
+    document.addEventListener('intro:done', startRevealAndCounts, {once:true});
+    setTimeout(function(){ if(!d.classList.contains('intro-done')) startRevealAndCounts(); }, 3600);
+  } else {
+    startRevealAndCounts();
+  }
 })();
 </script>
 <script>
